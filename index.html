@@ -93,6 +93,10 @@
   .pc .pn{font-family:'Space Grotesk';font-size:clamp(24px,7vw,34px);font-weight:700}
   .pc .pl{font-size:13px;color:var(--mut);margin-top:4px}
   .note{font-size:13px;color:var(--dim);margin-top:14px;font-style:italic}
+  .mkt{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+  .mc{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 8px;text-align:center}
+  .mc .mn{font-family:'Space Grotesk';font-size:clamp(22px,7vw,30px);font-weight:700;line-height:1}
+  .mc .ml{font-size:12px;color:var(--mut);margin-top:5px;line-height:1.3}
   @media(min-width:620px){.grid{grid-template-columns:1fr 1fr 1fr}.tab{flex:1 1 auto}}
 </style>
 </head>
@@ -132,12 +136,21 @@
   </section>
 
   <section class="panel" id="vision">
-    <h2 class="vh">Le concept</h2>
-    <p class="vp">Les cavaliers vivent des moments incroyables. Mais personne ne leur a donné l'outil pour les <b>montrer</b>. Horsevo transforme un saut, un résultat, un week-end de concours en une com qui claque, en quelques secondes. Une story, un best-of, une affiche : prêt à poster.</p>
-    <h2 class="vh">Le pourquoi</h2>
-    <p class="vp">Ce projet n'est pas né pour en vivre. Il est né pour <b>marquer quelque chose</b> : donner au monde du cheval l'app qu'il mérite, et laisser une trace.</p>
+    <h2 class="vh">Le problème</h2>
+    <p class="vp">Le cheval est une passion immense. Mais les cavaliers et les écuries n'ont aucun outil simple pour la <b>raconter</b>. Ils bricolent (Canva, captures d'écran, montages laborieux) ou ne publient rien. Des moments incroyables qui ne seront jamais vus.</p>
+    <h2 class="vh">Le marché</h2>
+    <p class="vp">L'équitation est l'un des sports les plus pratiqués en France, avec des millions de passionnés en Europe. Cavaliers, écuries, éleveurs, sponsors : tous cherchent de la visibilité.</p>
+    <div class="mkt">
+      <div class="mc"><div class="mn gold">700k+</div><div class="ml">licenciés en France</div></div>
+      <div class="mc"><div class="mn gold">3ᵉ</div><div class="ml">sport français</div></div>
+      <div class="mc"><div class="mn gold">M+</div><div class="ml">cavaliers en Europe</div></div>
+    </div>
+    <h2 class="vh">La solution</h2>
+    <p class="vp">Horsevo transforme un saut, un résultat, un week-end de concours en une com qui claque, en quelques secondes. Une story, un best-of, une affiche : prêt à poster. <b>Personne ne le fait aussi simplement.</b></p>
+    <h2 class="vh">La traction</h2>
+    <p class="vp">Déjà <b>sur TestFlight</b>, avec des premiers testeurs conquis (la galerie de stats, ils l'adorent). Mise en ligne sur l'App Store visée pour <b>juillet 2026</b>.</p>
     <h2 class="vh">Le modèle</h2>
-    <p class="vp">Simple et accessible : <b>5,99 € par mois</b>. Pas de pub, pas de complication. Juste un outil que les passionnés adorent.</p>
+    <p class="vp">Simple et accessible : <b>5,99 € par mois</b>. Pas de pub. Un revenu récurrent, des marges logicielles.</p>
     <h2 class="vh">Et si ça marche ?</h2>
     <div class="proj">
       <div class="proj-row"><span class="lab">Abonnés</span><span class="val gold" id="ab">1 000</span></div>
@@ -147,7 +160,9 @@
         <div class="pc"><div class="pn gold" id="yr">71 880 €</div><div class="pl">par an</div></div>
       </div>
     </div>
-    <p class="note">Projection brute, avant commission App Store (~15 à 30 %). Juste pour rêver un peu 😉</p>
+    <p class="note">Projection brute, avant commission App Store (~15 à 30 %).</p>
+    <h2 class="vh">Le pourquoi</h2>
+    <p class="vp"><b>8 mois. En solo. Sans relâche.</b> 970 améliorations, 223 fonctionnalités : une app complète, construite avec acharnement. Ce projet n'est pas né pour en vivre, mais pour <b>marquer quelque chose</b> — donner au monde du cheval l'app qu'il mérite.</p>
   </section>
 
   <section class="panel" id="construit">
