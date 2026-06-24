@@ -44,8 +44,8 @@
   .stat .n{font-family:'Space Grotesk';font-size:clamp(40px,12vw,62px);font-weight:700;line-height:1}
   .stat .l{font-size:13px;color:var(--mut);margin-top:6px;font-weight:500}
   /* tabs */
-  .tabs{position:sticky;top:0;z-index:5;display:flex;gap:7px;padding:16px 0;background:linear-gradient(180deg,var(--bg) 72%,transparent);margin-top:10px}
-  .tab{flex:1;font-family:Inter;font-size:14px;font-weight:600;color:var(--mut);background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:12px 6px;cursor:pointer;transition:.18s}
+  .tabs{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:7px;padding:16px 0;background:linear-gradient(180deg,var(--bg) 72%,transparent);margin-top:10px}
+  .tab{flex:1 1 calc(50% - 4px);font-family:Inter;font-size:13.5px;font-weight:600;color:var(--mut);background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:12px 6px;cursor:pointer;transition:.18s}
   .tab.on{color:#1a1206;background:var(--gold);border-color:transparent}
   .panel{display:none}.panel.on{display:block}
   /* timeline */
@@ -78,7 +78,22 @@
   .ship .d{font-family:'Space Grotesk';font-size:clamp(32px,9vw,44px);font-weight:700}
   .pill{display:inline-block;font-size:13px;padding:6px 14px;border-radius:10px;background:rgba(233,162,59,.14);color:var(--soft);margin-top:6px}
   footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--dim);text-align:center}
-  @media(min-width:620px){.grid{grid-template-columns:1fr 1fr 1fr}}
+  .vh{font-size:clamp(24px,6.5vw,30px);margin:28px 0 10px}
+  .vp{font-size:16px;color:var(--mut);max-width:600px;line-height:1.6}
+  .vp b{color:var(--ink);font-weight:600}
+  .proj{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:8px}
+  .proj-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .proj-row .lab{font-size:14px;color:var(--mut)}
+  .proj-row .val{font-family:'Space Grotesk';font-size:26px;font-weight:700}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:var(--surf2);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:#e9a23b;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+  input[type=range]::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;background:#e9a23b}
+  .proj-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  .pc{background:var(--surf2);border-radius:14px;padding:18px;text-align:center}
+  .pc .pn{font-family:'Space Grotesk';font-size:clamp(24px,7vw,34px);font-weight:700}
+  .pc .pl{font-size:13px;color:var(--mut);margin-top:4px}
+  .note{font-size:13px;color:var(--dim);margin-top:14px;font-style:italic}
+  @media(min-width:620px){.grid{grid-template-columns:1fr 1fr 1fr}.tab{flex:1 1 auto}}
 </style>
 </head>
 <body>
@@ -101,6 +116,7 @@
 
   <div class="tabs">
     <button class="tab on" data-p="voyage">Le voyage</button>
+    <button class="tab" data-p="vision">La vision</button>
     <button class="tab" data-p="construit">Ce qu'on a construit</button>
     <button class="tab" data-p="suite">La suite</button>
   </div>
@@ -113,6 +129,25 @@
       <div class="ev reveal"><div class="when">Juin 2026</div><div class="what">Le pivot vers la communication</div><div class="desc">L'app se recentre sur l'essentiel : créer et partager. Refonte visuelle complète, nouveau splash, nouvel accueil pensé comme Instagram.</div></div>
       <div class="ev future reveal"><div class="when">~8 juillet 2026</div><div class="what">🚀 La mise en ligne</div><div class="desc">Dernière ligne droite avant l'App Store : conformité Apple, build finale, soumission.</div></div>
     </div>
+  </section>
+
+  <section class="panel" id="vision">
+    <h2 class="vh">Le concept</h2>
+    <p class="vp">Les cavaliers vivent des moments incroyables. Mais personne ne leur a donné l'outil pour les <b>montrer</b>. Horsevo transforme un saut, un résultat, un week-end de concours en une com qui claque, en quelques secondes. Une story, un best-of, une affiche : prêt à poster.</p>
+    <h2 class="vh">Le pourquoi</h2>
+    <p class="vp">Ce projet n'est pas né pour en vivre. Il est né pour <b>marquer quelque chose</b> : donner au monde du cheval l'app qu'il mérite, et laisser une trace.</p>
+    <h2 class="vh">Le modèle</h2>
+    <p class="vp">Simple et accessible : <b>5,99 € par mois</b>. Pas de pub, pas de complication. Juste un outil que les passionnés adorent.</p>
+    <h2 class="vh">Et si ça marche ?</h2>
+    <div class="proj">
+      <div class="proj-row"><span class="lab">Abonnés</span><span class="val gold" id="ab">1 000</span></div>
+      <input type="range" min="0" max="10000" step="100" value="1000" id="sl" aria-label="Nombre d'abonnés">
+      <div class="proj-cards">
+        <div class="pc"><div class="pn gold" id="mo">5 990 €</div><div class="pl">par mois</div></div>
+        <div class="pc"><div class="pn gold" id="yr">71 880 €</div><div class="pl">par an</div></div>
+      </div>
+    </div>
+    <p class="note">Projection brute, avant commission App Store (~15 à 30 %). Juste pour rêver un peu 😉</p>
   </section>
 
   <section class="panel" id="construit">
@@ -254,6 +289,11 @@
   function countUp(el){var to=+el.dataset.to,d=1300,s=performance.now();function tick(n){var p=Math.min(1,(n-s)/d);el.textContent=Math.round(to*(1-Math.pow(1-p,4))).toLocaleString('fr-FR');if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}
   var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}})},{threshold:.5});
   document.querySelectorAll('.n[data-to]').forEach(function(el){cio.observe(el);});
+  // Simulateur de projection (5,99 € / mois)
+  var sl=document.getElementById('sl');
+  if(sl){var euro=function(n){return n.toLocaleString('fr-FR')+' €';};
+    var proj=function(){var a=+sl.value;document.getElementById('ab').textContent=a.toLocaleString('fr-FR');var mo=a*5.99;document.getElementById('mo').textContent=euro(Math.round(mo));document.getElementById('yr').textContent=euro(Math.round(mo*12));};
+    sl.addEventListener('input',proj);proj();}
 </script>
 </body>
 </html>
