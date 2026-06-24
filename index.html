@@ -47,7 +47,26 @@
   .tabs{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:7px;padding:16px 0;background:linear-gradient(180deg,var(--bg) 72%,transparent);margin-top:10px}
   .tab{flex:1 1 calc(50% - 4px);font-family:Inter;font-size:13.5px;font-weight:600;color:var(--mut);background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:12px 6px;cursor:pointer;transition:.18s}
   .tab.on{color:#1a1206;background:var(--gold);border-color:transparent}
+  .tab.wide{flex-basis:100%}
   .panel{display:none}.panel.on{display:block}
+  /* Planning cliquable — accordéon jour par jour */
+  .plan-intro{font-size:15px;color:var(--mut);margin:4px 0 16px;line-height:1.55}
+  .plan-intro b{color:var(--ink)}
+  .day{background:var(--surf);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+  .day.open{border-color:rgba(233,162,59,.45)}
+  .day.launch{background:linear-gradient(150deg,rgba(233,162,59,.15),transparent 72%)}
+  .day-h{width:100%;display:flex;align-items:center;gap:12px;padding:15px 16px;background:none;border:0;cursor:pointer;text-align:left;color:var(--ink);font-family:Inter}
+  .day-dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .day-lead{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .day-date{font-family:'Space Grotesk';font-weight:700;font-size:15px;letter-spacing:-.01em}
+  .day-title{font-size:13px;color:var(--mut)}
+  .day-chev{color:var(--mut);font-size:12px;transition:transform .3s;flex:none}
+  .day.open .day-chev{transform:rotate(180deg)}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+  .day.open .day-body{max-height:440px}
+  .day-tasks{padding:2px 16px 16px 37px;display:flex;flex-direction:column;gap:9px}
+  .task{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--ink);line-height:1.4}
+  .task .tk{color:var(--gold);flex:none;margin-top:1px;font-size:12px}
   /* timeline */
   .tl{position:relative;padding-left:30px;margin-top:10px}
   .tl::before{content:"";position:absolute;left:9px;top:10px;bottom:10px;width:2px;background:var(--line)}
@@ -99,7 +118,7 @@
   .mc .ml{font-size:12px;color:var(--mut);margin-top:5px;line-height:1.3}
   .mc.hot{border-color:rgba(233,162,59,.55);background:rgba(233,162,59,.09)}
   .mc .mn:not(.gold){color:var(--mut)}
-  @media(min-width:620px){.grid{grid-template-columns:1fr 1fr 1fr}.tab{flex:1 1 auto}}
+  @media(min-width:620px){.grid{grid-template-columns:1fr 1fr 1fr}.tab{flex:1 1 auto}.tab.wide{flex-basis:auto}}
 </style>
 </head>
 <body>
@@ -125,6 +144,7 @@
     <button class="tab" data-p="vision">La vision</button>
     <button class="tab" data-p="construit">Ce qu'on a construit</button>
     <button class="tab" data-p="suite">La suite</button>
+    <button class="tab wide" data-p="planning">Le planning</button>
   </div>
 
   <section class="panel on" id="voyage">
@@ -302,6 +322,172 @@
     </div>
   </section>
 
+  <section class="panel" id="planning">
+    <p class="plan-intro">À <b>deux semaines</b> du lancement. Voici le plan, <b>jour par jour</b> — clique sur une journée pour dérouler les tâches.</p>
+
+    <div class="day reveal open">
+      <button class="day-h" aria-expanded="true">
+        <span class="day-dot" style="background:var(--amber)"></span>
+        <span class="day-lead"><span class="day-date">Mer. 24 juin</span><span class="day-title">Conformité Apple · 1/3</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Suppression de compte directement dans l'app</div>
+        <div class="task"><span class="tk">○</span>Fichier de confidentialité PrivacyInfo.xcprivacy</div>
+        <div class="task"><span class="tk">○</span>Politique de confidentialité (rédaction + mise en ligne)</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--amber)"></span>
+        <span class="day-lead"><span class="day-date">Jeu. 25 juin</span><span class="day-title">Conformité Apple · 2/3</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Déclarations de confidentialité côté App Store</div>
+        <div class="task"><span class="tk">○</span>Vérifier les permissions (caméra, photos)</div>
+        <div class="task"><span class="tk">○</span>Mentions légales</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--blue)"></span>
+        <span class="day-lead"><span class="day-date">Ven. 26 juin</span><span class="day-title">Performance &amp; passage à l'échelle</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Migration des index (clés étrangères)</div>
+        <div class="task"><span class="tk">○</span>Restreindre l'accès aux fichiers publics</div>
+        <div class="task"><span class="tk">○</span>Protection contre les mots de passe fuités</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Sam. 27 juin</span><span class="day-title">Photo &amp; finitions visuelles</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Intégrer la photo noir &amp; blanc de l'accueil</div>
+        <div class="task"><span class="tk">○</span>Derniers réglages de design</div>
+        <div class="task"><span class="tk">○</span>Vérifier la barre de navigation flottante</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--mut)"></span>
+        <span class="day-lead"><span class="day-date">Dim. 28 juin</span><span class="day-title">Respiration / rattrapage</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Tests libres, prise de recul</div>
+        <div class="task"><span class="tk">○</span>Marge pour le retard éventuel</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--blue)"></span>
+        <span class="day-lead"><span class="day-date">Lun. 29 juin</span><span class="day-title">Tutoriel dans l'app</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Écrire le tuto (best of, résultat, story)</div>
+        <div class="task"><span class="tk">○</span>L'intégrer au premier lancement</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--blue)"></span>
+        <span class="day-lead"><span class="day-date">Mar. 30 juin</span><span class="day-title">Partage &amp; best of</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Partage Instagram en 1 tap</div>
+        <div class="task"><span class="tk">○</span>Réglages avancés du best of</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--amber)"></span>
+        <span class="day-lead"><span class="day-date">Mer. 1 juil</span><span class="day-title">Build TestFlight + bêta</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Build finale</div>
+        <div class="task"><span class="tk">○</span>Envoi aux bêta-testeurs</div>
+        <div class="task"><span class="tk">○</span>Lancer la collecte des retours</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--amber)"></span>
+        <span class="day-lead"><span class="day-date">Jeu. 2 juil</span><span class="day-title">Corrections bêta</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Traiter les retours des testeurs</div>
+        <div class="task"><span class="tk">○</span>Corriger les bugs prioritaires</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--blue)"></span>
+        <span class="day-lead"><span class="day-date">Ven. 3 juil</span><span class="day-title">Préparation App Store</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Captures d'écran</div>
+        <div class="task"><span class="tk">○</span>Description et mots-clés</div>
+        <div class="task"><span class="tk">○</span>Finaliser la page produit</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--mut)"></span>
+        <span class="day-lead"><span class="day-date">Sam. – Dim. 4-5 juil</span><span class="day-title">Tests finaux</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Parcours complet de bout en bout</div>
+        <div class="task"><span class="tk">○</span>Performance sur iPhone</div>
+        <div class="task"><span class="tk">○</span>Cas limites</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Lun. 6 juil</span><span class="day-title">Soumission</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Build de production</div>
+        <div class="task"><span class="tk">○</span>Soumission à la validation Apple</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--amber)"></span>
+        <span class="day-lead"><span class="day-date">Mar. 7 juil</span><span class="day-title">Validation Apple</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Répondre aux questions éventuelles d'Apple</div>
+        <div class="task"><span class="tk">○</span>Derniers correctifs</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Mer. 8 juil</span><span class="day-title">🚀 Mise en ligne</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Publication sur l'App Store</div>
+        <div class="task"><span class="tk">○</span>Annonce officielle</div>
+        <div class="task"><span class="tk">○</span>La toute première vraie com 🐎</div>
+      </div></div>
+    </div>
+  </section>
+
   <footer>Horsevo · 2026 · La passion mérite d'être vue 🐎</footer>
 </div>
 <script>
@@ -327,6 +513,13 @@
   if(sl){var euro=function(n){return n.toLocaleString('fr-FR')+' €';};
     var proj=function(){var a=+sl.value;document.getElementById('ab').textContent=a.toLocaleString('fr-FR');var mo=a*5.99;document.getElementById('mo').textContent=euro(Math.round(mo));document.getElementById('yr').textContent=euro(Math.round(mo*12));};
     sl.addEventListener('input',proj);proj();}
+  // Planning — accordéon jour par jour
+  document.querySelectorAll('.day-h').forEach(function(h){
+    h.addEventListener('click',function(){
+      var d=h.parentElement,open=d.classList.toggle('open');
+      h.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
 </script>
 </body>
 </html>
