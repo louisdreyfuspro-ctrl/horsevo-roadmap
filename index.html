@@ -210,6 +210,9 @@
         <div class="f"><span class="t">✓</span><b>Fiche cheval épurée sur les statistiques, avec calcul par période (20 ou 50 derniers parcours, 6 ou 12 mois)</b></div>
         <div class="f"><span class="t">✓</span><b>Feuille de route entièrement cliquable, ajout de concours sans doublon</b></div>
         <div class="f"><span class="t">✓</span><b>Barre de navigation affinée, photo d'accueil, mise à jour instantanée des stats après synchronisation</b></div>
+        <div class="f"><span class="t">✓</span><b>Performance et passage à l'échelle : 24 index ajoutés en base, l'app tient le rythme jusqu'à ~1000 cavaliers</b></div>
+        <div class="f"><span class="t">✓</span><b>Écran de connexion refait : Horsevo, la tête de cheval qui se dessine, la bonne identité (fin de l'ancien nom)</b></div>
+        <div class="f"><span class="t">✓</span><b>Templates de performance refondus : blanc éditorial, premium, sans le doré qui jurait</b></div>
       </div>
     </div>
 
@@ -310,11 +313,9 @@
 
   <section class="panel" id="suite">
     <div class="col reveal"><div class="ct" style="color:var(--amber)">Maintenant</div>
-      <div class="li"><span style="color:var(--amber)">→</span><span><b>Onboarding nouveau cavalier</b> : un chemin parfait, compte → écurie → 1er cheval → 1re com en 30 s, avec tuto guidé</span></div>
-      <div class="li"><span style="color:var(--amber)">→</span><span><b>Fiche cheval épurée</b> : ne garder que les statistiques (retrait santé, documents, concours)</span></div>
-      <div class="li"><span style="color:var(--amber)">→</span><span>Finaliser la conformité Apple</span></div>
+      <div class="li"><span style="color:var(--amber)">→</span><span><b>Build TestFlight + soumission App Store</b></span></div>
       <div class="li"><span style="color:var(--amber)">→</span><span>Timeline CapCut (montage au doigt) en v1</span></div>
-      <div class="li"><span style="color:var(--amber)">→</span><span>Derniers polish design</span></div>
+      <div class="li"><span style="color:var(--amber)">→</span><span>Durcir l'accès aux fichiers + protection mots de passe fuités</span></div>
     </div>
     <div class="col reveal"><div class="ct" style="color:var(--blue)">Ensuite</div>
       <div class="li"><span style="color:var(--blue)">→</span><span>Partage Instagram en 1 tap</span></div>
@@ -322,6 +323,7 @@
     </div>
     <div class="col reveal"><div class="ct" style="color:var(--mut)">Plus tard</div>
       <div class="li"><span style="color:var(--mut)">→</span><span>Best of avancé</span></div>
+      <div class="li"><span style="color:var(--mut)">→</span><span>Optimiser les politiques de sécurité (RLS) pour la montée en charge</span></div>
       <div class="li"><span style="color:var(--mut)">→</span><span>Édition sur ordinateur (passer du téléphone à l'ordi pour retoucher un template)</span></div>
       <div class="li"><span style="color:var(--mut)">→</span><span>Importer ton travail à la maison : compiler plusieurs vidéos de saut filmées à l'entraînement pour présenter un cheval</span></div>
       <div class="li"><span style="color:var(--mut)">→</span><span>Personnalité de l'app</span></div>
@@ -335,43 +337,10 @@
   </section>
 
   <section class="panel" id="planning">
-    <p class="plan-intro"><b>Conformité Apple bouclée, onboarding en place.</b> Voici la dernière ligne droite, <b>jour par jour</b> : clique sur une journée pour dérouler les tâches.</p>
+    <p class="plan-intro"><b>Conformité, performance et design : faits.</b> Dernière ligne droite vers le lancement, <b>jour par jour</b> : clique sur une journée pour dérouler les tâches.</p>
 
     <div class="day reveal open">
       <button class="day-h" aria-expanded="true">
-        <span class="day-dot" style="background:var(--blue)"></span>
-        <span class="day-lead"><span class="day-date">Ven. 26 juin</span><span class="day-title">Performance &amp; passage à l'échelle</span></span>
-        <span class="day-chev">▾</span></button>
-      <div class="day-body"><div class="day-tasks">
-        <div class="task"><span class="tk">○</span>Migration des index (clés étrangères)</div>
-        <div class="task"><span class="tk">○</span>Restreindre l'accès aux fichiers publics</div>
-        <div class="task"><span class="tk">○</span>Protection contre les mots de passe fuités</div>
-      </div></div>
-    </div>
-
-    <div class="day reveal">
-      <button class="day-h" aria-expanded="false">
-        <span class="day-dot" style="background:var(--gold)"></span>
-        <span class="day-lead"><span class="day-date">Sam. 27 juin</span><span class="day-title">Photo &amp; finitions visuelles</span></span>
-        <span class="day-chev">▾</span></button>
-      <div class="day-body"><div class="day-tasks">
-        <div class="task"><span class="tk">○</span>Derniers réglages de design</div>
-      </div></div>
-    </div>
-
-    <div class="day reveal">
-      <button class="day-h" aria-expanded="false">
-        <span class="day-dot" style="background:var(--mut)"></span>
-        <span class="day-lead"><span class="day-date">Dim. 28 juin</span><span class="day-title">Respiration / rattrapage</span></span>
-        <span class="day-chev">▾</span></button>
-      <div class="day-body"><div class="day-tasks">
-        <div class="task"><span class="tk">○</span>Tests libres, prise de recul</div>
-        <div class="task"><span class="tk">○</span>Marge pour le retard éventuel</div>
-      </div></div>
-    </div>
-
-    <div class="day reveal">
-      <button class="day-h" aria-expanded="false">
         <span class="day-dot" style="background:var(--blue)"></span>
         <span class="day-lead"><span class="day-date">Mar. 30 juin</span><span class="day-title">Partage &amp; best of</span></span>
         <span class="day-chev">▾</span></button>
