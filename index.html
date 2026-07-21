@@ -176,21 +176,21 @@
     <h2 class="vh">La traction</h2>
     <p class="vp">Déjà <b>sur TestFlight</b>, avec des premiers testeurs conquis (la galerie de stats, ils l'adorent). Mise en ligne sur l'App Store visée pour le <b>21 juillet 2026</b>.</p>
     <h2 class="vh">La valeur</h2>
-    <p class="vp">Aujourd'hui, bien communiquer, ça se paie cher. Un <b>community manager</b> dépasse vite <b>400 € par mois</b>. Un <b>seul reel</b> confié à un prestataire coûte en moyenne <b>120 €</b>. Horsevo fait le travail pour <b>5,99 € par mois</b>, autant de fois que tu veux. Le même résultat, une fraction du prix.</p>
+    <p class="vp">Aujourd'hui, bien communiquer, ça se paie cher. Un <b>community manager</b> dépasse vite <b>400 € par mois</b>. Un <b>seul reel</b> confié à un prestataire coûte en moyenne <b>120 €</b>. Horsevo fait le travail pour <b>9,99 € par mois</b> (ou <b>100 € par an</b>), autant de fois que tu veux. Le même résultat, une fraction du prix.</p>
     <div class="mkt">
       <div class="mc"><div class="mn">400 €</div><div class="ml">par mois · community manager</div></div>
       <div class="mc"><div class="mn">120 €</div><div class="ml">un seul reel (prestataire)</div></div>
-      <div class="mc hot"><div class="mn gold">5,99 €</div><div class="ml">par mois · à volonté · Horsevo</div></div>
+      <div class="mc hot"><div class="mn gold">9,99 €</div><div class="ml">par mois · à volonté · Horsevo</div></div>
     </div>
     <h2 class="vh">Le modèle</h2>
-    <p class="vp">Abonnement <b>5,99 € par mois</b>. Pas de pub, pas d'engagement compliqué. Un revenu <b>récurrent</b>, des marges logicielles, et un prix si bas qu'il devient une évidence face aux alternatives. Quand un seul reel coûte 120 €, payer 5,99 €/mois pour en produire à volonté, ça ne se réfléchit même pas.</p>
+    <p class="vp">Abonnement <b>9,99 € par mois</b>, ou <b>100 € l'année</b> (deux mois offerts) — après <b>1 mois d'essai gratuit</b>. Pas de pub, pas d'engagement compliqué. Un revenu <b>récurrent</b>, des marges logicielles, et un prix si bas qu'il devient une évidence face aux alternatives. Quand un seul reel coûte 120 €, payer 9,99 €/mois pour en produire à volonté, ça ne se réfléchit même pas.</p>
     <h2 class="vh">Et si ça marche ?</h2>
     <div class="proj">
       <div class="proj-row"><span class="lab">Abonnés</span><span class="val gold" id="ab">1 000</span></div>
       <input type="range" min="0" max="10000" step="100" value="1000" id="sl" aria-label="Nombre d'abonnés">
       <div class="proj-cards">
-        <div class="pc"><div class="pn gold" id="mo">5 990 €</div><div class="pl">par mois</div></div>
-        <div class="pc"><div class="pn gold" id="yr">71 880 €</div><div class="pl">par an</div></div>
+        <div class="pc"><div class="pn gold" id="mo">9 990 €</div><div class="pl">par mois</div></div>
+        <div class="pc"><div class="pn gold" id="yr">119 880 €</div><div class="pl">par an</div></div>
       </div>
     </div>
     <p class="note">Projection brute, avant commission App Store (~15 à 30 %).</p>
@@ -580,10 +580,10 @@
   function countUp(el){var to=+el.dataset.to,d=1300,s=performance.now();function tick(n){var p=Math.min(1,(n-s)/d);el.textContent=Math.round(to*(1-Math.pow(1-p,4))).toLocaleString('fr-FR');if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}
   var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}})},{threshold:.5});
   document.querySelectorAll('.n[data-to]').forEach(function(el){cio.observe(el);});
-  // Simulateur de projection (5,99 € / mois)
+  // Simulateur de projection (9,99 € / mois)
   var sl=document.getElementById('sl');
   if(sl){var euro=function(n){return n.toLocaleString('fr-FR')+' €';};
-    var proj=function(){var a=+sl.value;document.getElementById('ab').textContent=a.toLocaleString('fr-FR');var mo=a*5.99;document.getElementById('mo').textContent=euro(Math.round(mo));document.getElementById('yr').textContent=euro(Math.round(mo*12));};
+    var proj=function(){var a=+sl.value;document.getElementById('ab').textContent=a.toLocaleString('fr-FR');var mo=a*9.99;document.getElementById('mo').textContent=euro(Math.round(mo));document.getElementById('yr').textContent=euro(Math.round(mo*12));};
     sl.addEventListener('input',proj);proj();}
   // Planning, accordéon jour par jour
   document.querySelectorAll('.day-h').forEach(function(h){
