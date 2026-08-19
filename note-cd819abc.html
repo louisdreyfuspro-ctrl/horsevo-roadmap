@@ -1,0 +1,308 @@
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horsevo, dix-sept jours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground: #FBFAF6;
+    --surface: #FFFFFF;
+    --line: #E2DED1;
+    --ink: #17171A;
+    --ink-soft: #55524A;
+    --gold: #8A6A12;
+    --gold-soft: #EFE6CC;
+    --rule: #C9BFA3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C0C0E;
+      --surface: #141417;
+      --line: #26262B;
+      --ink: #F2EFE6;
+      --ink-soft: #9C978A;
+      --gold: #D6AE3C;
+      --gold-soft: #2A2314;
+      --rule: #3A3324;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C0C0E;
+    --surface: #141417;
+    --line: #26262B;
+    --ink: #F2EFE6;
+    --ink-soft: #9C978A;
+    --gold: #D6AE3C;
+    --gold-soft: #2A2314;
+    --rule: #3A3324;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 5vw, 2.5rem) 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.75rem, 6vw, 4rem);
+  }
+
+  .label {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  header { display: flex; flex-direction: column; gap: 1.1rem; }
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .wordmark {
+    font-family: "Anton", "Arial Narrow", Impact, sans-serif;
+    font-size: clamp(2rem, 7vw, 2.9rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  .stamp {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+  .thesis {
+    font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+    line-height: 1.36;
+    font-weight: 300;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .thesis em { font-style: italic; color: var(--gold); }
+
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .fig {
+    background: var(--surface);
+    padding: 1.4rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .fig b {
+    font-family: "Anton", "Arial Narrow", Impact, sans-serif;
+    font-size: clamp(2rem, 6vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .fig span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.71rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  section { display: flex; flex-direction: column; gap: 1rem; }
+  h2 {
+    font-family: "Anton", "Arial Narrow", Impact, sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.3rem, 3.4vw, 1.6rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p { margin: 0; text-wrap: pretty; }
+  .soft { color: var(--ink-soft); }
+
+  ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+  li { padding-left: 1.4rem; position: relative; }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.72em;
+    width: 0.5rem; height: 1px;
+    background: var(--rule);
+  }
+  li b { font-weight: 600; }
+
+  /* ── Le registre ───────────────────────────────────────── */
+  .ledger { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
+  .entry {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 0.4rem 1.5rem;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 40rem) { .entry { grid-template-columns: 1fr; } }
+  .entry .who {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.79rem;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+    align-self: start;
+  }
+  .entry .who i { display: block; font-style: normal; color: var(--ink-soft); font-size: 0.72rem; margin-top: 0.15rem; }
+  .entry .what { font-size: 0.98rem; line-height: 1.55; }
+  .entry.headline .what { font-weight: 600; }
+  .entry.headline .what em { font-style: italic; color: var(--gold); font-weight: 400; }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 1.5rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .close {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+  }
+</style>
+
+<div class="sheet">
+
+  <header>
+    <div class="masthead">
+      <h1 class="wordmark">Horsevo</h1>
+      <div class="stamp">19 août 2026<br>Note de situation</div>
+    </div>
+    <p class="thesis">
+      Le cheval de sport est un milieu d'image, et personne n'y sait communiquer.
+      Horsevo fait en trois taps ce qu'un cavalier ne fait pas du tout&nbsp;:
+      <em>sa com, propre, à son nom, le soir même du concours.</em>
+    </p>
+  </header>
+
+  <section>
+    <span class="label">Depuis la mise en ligne, le 2 août</span>
+    <div class="figures">
+      <div class="fig"><b>539</b><span>comptes créés en 17 jours</span></div>
+      <div class="fig"><b>94 %</b><span>ont ouvert l'app</span></div>
+      <div class="fig"><b>1 089</b><span>chevaux enregistrés</span></div>
+      <div class="fig"><b>0 €</b><span>de publicité</span></div>
+    </div>
+    <p class="soft">
+      504 écuries, 327 concours suivis. Pas un euro dépensé en acquisition : tout vient
+      du bouche-à-oreille et des visuels que les cavaliers postent eux-mêmes. Chaque
+      story publiée porte la signature de l'app. Le produit est son propre média.
+    </p>
+  </section>
+
+  <section>
+    <h2>Ce qui m'a été proposé</h2>
+    <p class="soft">
+      Relevé des approches reçues depuis la mise en ligne. Aucune n'a été sollicitée.
+    </p>
+    <div class="ledger">
+
+      <div class="entry headline">
+        <div class="who">Août 2026<i>Offre d'entrée au capital</i></div>
+        <div class="what"><em>50 000 € contre 10 % du capital. Décliné.</em> Cela valorisait la société 500 000 € trois semaines après sa mise en ligne. Je n'avais pas besoin de l'argent, et je ne vends pas un dixième de la boîte au premier prix venu.</div>
+      </div>
+
+      <div class="entry">
+        <div class="who">Scott Brash<i>Cavalier, n°1 mondial</i></div>
+        <div class="what">M'a dit lui-même que c'était une très bonne idée. Son manager a évoqué une entrée au capital.</div>
+      </div>
+
+      <div class="entry">
+        <div class="who">Laurent Guillet<i>Écurie de concours</i></div>
+        <div class="what">A proposé de mettre une part dans la société.</div>
+      </div>
+
+      <div class="entry">
+        <div class="who">Thierry Rozier<i>Cavalier et entraîneur</i></div>
+        <div class="what">Intéressé par une participation.</div>
+      </div>
+
+      <div class="entry">
+        <div class="who">Charles-Henri Fermé<i>Propriétaire des chevaux de Romain</i></div>
+        <div class="what">A proposé de mettre une part dans la société. Selon lui, l'idée peut valoir des millions.</div>
+      </div>
+
+    </div>
+    <p class="soft">
+      Je n'ai donné suite à aucune. Ce que je cherche n'est pas un chèque, c'est une
+      poignée d'écuries de référence qui utilisent l'app devant tout le monde.
+    </p>
+  </section>
+
+  <section>
+    <h2>Ce que fait l'app</h2>
+    <ul>
+      <li><b>La com.</b> Une photo ou une vidéo, un résultat, et le visuel sort habillé, à la charte de l'écurie. Story de résultat, heures de passage, annonces, sponsors.</li>
+      <li><b>Le sportif.</b> Le programme officiel de chaque concours international, les épreuves, les heures, l'adresse. Récupéré et mis en forme tout seul.</li>
+      <li><b>L'écurie.</b> Les chevaux, les cavaliers, les concours, le planning. Ce qui alimente les deux premiers sans rien retaper.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Le modèle</h2>
+    <p>
+      9,99 € par mois, 99,99 € par an. Après TVA et commission Apple, il reste
+      <b>7,08 € net</b> par abonné et par mois. Pas de pub, pas de commission sur les
+      chevaux, pas de place de marché : un abonnement, point.
+    </p>
+    <p class="soft">
+      Le mois offert court jusqu'au 31 août, puis passe à sept jours. La conversion se
+      lira début septembre : c'est la seule vraie inconnue, et c'est elle qui décide de
+      tout le reste. À 350 abonnés, l'affaire s'autofinance.
+    </p>
+  </section>
+
+  <section>
+    <h2>Ce que je propose</h2>
+    <ul>
+      <li><b>L'écurie l'utilise, vraiment.</b> Un accès pour le staff, ses chevaux chargés, sa charte appliquée. On mesure sur une saison.</li>
+      <li><b>On construit ce qui vous manque.</b> Ce que vous demandez et qui sert au reste du circuit, je le développe.</li>
+      <li><b>Le capital, ensuite.</b> S'il doit y avoir une entrée au capital, elle se discute après avoir travaillé ensemble, pas avant.</li>
+    </ul>
+  </section>
+
+  <p class="close">
+    Louis Dreyfus · Horsevo · Application développée seul, en ligne depuis le 2 août 2026.<br>
+    Chiffres arrêtés au 19 août 2026, relevés en base, vérifiables.
+  </p>
+
+</div>
