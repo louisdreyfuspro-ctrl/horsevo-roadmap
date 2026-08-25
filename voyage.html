@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Horsevo · Le voyage</title>
+<meta property="og:title" content="Horsevo">
+<meta property="og:description" content="La passion mérite d'être vue.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0d;--surf:#15161a;--surf2:#1c1e23;--line:rgba(255,255,255,.07);
+    --ink:#f6f8fa;--mut:#9a9ea7;--dim:#64686f;
+    --amber:#e9a23b;--soft:#f3d488;--gold:linear-gradient(135deg,#f6da8c,#d49426);
+    --green:#74c47e;--blue:#6ea8e6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 22px 100px;
+    background-image:radial-gradient(90% 50% at 85% -8%,rgba(233,162,59,.14),transparent 60%),radial-gradient(70% 45% at 0% 3%,rgba(233,162,59,.07),transparent 55%)}
+  .wrap{max-width:780px;margin:0 auto}
+  h1,h2,h3{font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:-.025em;line-height:1.08;font-weight:700}
+  .mut{color:var(--mut)}
+  .gold{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+  /* shimmer doré (vivant, subtil) sur la marque + accents */
+  .shine{background:linear-gradient(110deg,#d49426 20%,#f8e3a0 50%,#d49426 80%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5.5s linear infinite}
+  @keyframes shine{to{background-position:-220% center}}
+  /* révélations au scroll */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.shine{animation:none}}
+  /* hero */
+  header{padding:64px 0 26px;text-align:center}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);font-weight:600}
+  .brand{font-size:clamp(52px,16vw,84px);margin:12px 0}
+  .punch{font-size:clamp(26px,7vw,40px);font-weight:600;letter-spacing:-.02em;max-width:540px;margin:0 auto;line-height:1.12}
+  .sub{font-size:16.5px;color:var(--mut);max-width:470px;margin:16px auto 0}
+  .quote{max-width:430px;margin:24px auto 0;font-size:16px;font-style:italic;color:var(--ink);line-height:1.5}
+  .quote span{display:block;font-style:normal;font-size:13px;font-weight:600;margin-top:8px;letter-spacing:.02em}
+  /* stats énormes */
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:36px 0 6px}
+  .stat{background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:22px 16px;text-align:center;transition:transform .25s ease,border-color .25s ease}
+  .stat:hover{transform:translateY(-3px);border-color:rgba(233,162,59,.35)}
+  .stat .n{font-family:'Space Grotesk';font-size:clamp(40px,12vw,62px);font-weight:700;line-height:1}
+  .stat .l{font-size:13px;color:var(--mut);margin-top:6px;font-weight:500}
+  /* tabs */
+  .tabs{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:7px;padding:16px 0;background:linear-gradient(180deg,var(--bg) 72%,transparent);margin-top:10px}
+  .tab{flex:1 1 calc(50% - 4px);font-family:Inter;font-size:13.5px;font-weight:600;color:var(--mut);background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:12px 6px;cursor:pointer;transition:.18s}
+  .tab.on{color:#1a1206;background:var(--gold);border-color:transparent}
+  .tab.wide{flex-basis:100%}
+  .panel{display:none}.panel.on{display:block}
+  /* Planning cliquable, accordéon jour par jour */
+  .plan-intro{font-size:15px;color:var(--mut);margin:4px 0 16px;line-height:1.55}
+  .plan-intro b{color:var(--ink)}
+  .day{background:var(--surf);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+  .day.open{border-color:rgba(233,162,59,.45)}
+  .day.launch{background:linear-gradient(150deg,rgba(233,162,59,.15),transparent 72%)}
+  .day-h{width:100%;display:flex;align-items:center;gap:12px;padding:15px 16px;background:none;border:0;cursor:pointer;text-align:left;color:var(--ink);font-family:Inter}
+  .day-dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .day-lead{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .day-date{font-family:'Space Grotesk';font-weight:700;font-size:15px;letter-spacing:-.01em}
+  .day-title{font-size:13px;color:var(--mut)}
+  .day-chev{color:var(--mut);font-size:12px;transition:transform .3s;flex:none}
+  .day.open .day-chev{transform:rotate(180deg)}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+  .day.open .day-body{max-height:440px}
+  .day-tasks{padding:2px 16px 16px 37px;display:flex;flex-direction:column;gap:9px}
+  .task{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--ink);line-height:1.4}
+  .task .tk{color:var(--gold);flex:none;margin-top:1px;font-size:12px}
+  /* timeline */
+  .tl{position:relative;padding-left:30px;margin-top:10px}
+  .tl::before{content:"";position:absolute;left:9px;top:10px;bottom:10px;width:2px;background:var(--line)}
+  .ev{position:relative;padding:12px 0 24px}
+  .ev::before{content:"";position:absolute;left:-25px;top:15px;width:13px;height:13px;border-radius:50%;background:var(--amber)}
+  .ev.future::before{background:var(--bg);border:2px solid var(--amber);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(233,162,59,.5)}50%{box-shadow:0 0 0 7px rgba(233,162,59,0)}}
+  .ev .when{font-size:13px;color:var(--amber);font-weight:600;font-family:'Space Grotesk'}
+  .ev .what{font-size:19px;font-weight:600;margin:2px 0 4px;font-family:'Space Grotesk'}
+  .ev .desc{font-size:15px;color:var(--mut)}
+  /* construit */
+  .cat{margin-top:22px}
+  .cat-h{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .cat-h .ic{font-size:30px}
+  .cat-h h2{font-size:clamp(26px,7vw,34px)}
+  .cat-h .cnt{font-size:13px;font-weight:600;color:var(--soft);background:rgba(233,162,59,.13);padding:4px 11px;border-radius:9px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .f{background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:13px 14px;font-size:14px;display:flex;gap:9px;align-items:flex-start;transition:transform .2s ease,border-color .2s ease}
+  .f:hover{transform:translateY(-2px);border-color:rgba(233,162,59,.3)}
+  .f .t{color:var(--green);flex:none;font-weight:600}
+  .f b{font-weight:500}
+  /* suite */
+  .col{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-top:12px}
+  .col .ct{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+  .li{font-size:15px;padding:7px 0;border-top:1px solid var(--line);display:flex;gap:10px}
+  .li:first-of-type{border-top:0}
+  .ship{margin-top:16px;background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:24px;text-align:center}
+  .ship .d{font-family:'Space Grotesk';font-size:clamp(32px,9vw,44px);font-weight:700}
+  .pill{display:inline-block;font-size:13px;padding:6px 14px;border-radius:10px;background:rgba(233,162,59,.14);color:var(--soft);margin-top:6px}
+  footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--dim);text-align:center}
+  .vh{font-size:clamp(24px,6.5vw,30px);margin:28px 0 10px}
+  .vp{font-size:16px;color:var(--mut);max-width:600px;line-height:1.6}
+  .vp b{color:var(--ink);font-weight:600}
+  .proj{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:8px}
+  .proj-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .proj-row .lab{font-size:14px;color:var(--mut)}
+  .proj-row .val{font-family:'Space Grotesk';font-size:26px;font-weight:700}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:var(--surf2);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:#e9a23b;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+  input[type=range]::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;background:#e9a23b}
+  .proj-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  .pc{background:var(--surf2);border-radius:14px;padding:18px;text-align:center}
+  .pc .pn{font-family:'Space Grotesk';font-size:clamp(24px,7vw,34px);font-weight:700}
+  .pc .pl{font-size:13px;color:var(--mut);margin-top:4px}
+  .note{font-size:13px;color:var(--dim);margin-top:14px;font-style:italic}
+  .mkt{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+  .mc{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 8px;text-align:center}
+  .mc .mn{font-family:'Space Grotesk';font-size:clamp(22px,7vw,30px);font-weight:700;line-height:1}
+  .mc .ml{font-size:12px;color:var(--mut);margin-top:5px;line-height:1.3}
+  .mc.hot{border-color:rgba(233,162,59,.55);background:rgba(233,162,59,.09)}
+  .mc .mn:not(.gold){color:var(--mut)}
+  @media(min-width:620px){.grid{grid-template-columns:1fr 1fr 1fr}.tab{flex:1 1 auto}.tab.wide{flex-basis:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow reveal">De l'idée à l'App Store</div>
+    <div class="brand reveal">Hors<span class="shine">evo</span></div>
+    <div class="punch reveal">La passion mérite d'être <span class="gold">vue</span>.</div>
+    <p class="sub reveal">Stories, résultats, best of vidéo. L'app qui fait rayonner les cavaliers et leurs chevaux, en quelques secondes.</p>
+    <p class="quote reveal">« Les résultats passent, les images restent. »<span class="gold">Louis Dreyfus</span></p>
+  </header>
+
+  <div class="stats">
+    <div class="stat reveal"><div class="n gold" data-to="1010">0</div><div class="l">améliorations apportées</div></div>
+    <div class="stat reveal"><div class="n gold" data-to="231">0</div><div class="l">fonctionnalités créées</div></div>
+    <div class="stat reveal"><div class="n gold" data-to="176">0</div><div class="l">bugs traqués et corrigés</div></div>
+    <div class="stat reveal"><div class="n gold" data-to="8">0</div><div class="l">univers dans une seule app</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" data-p="voyage">Le voyage</button>
+    <button class="tab" data-p="vision">La vision</button>
+    <button class="tab" data-p="construit">Ce qu'on a construit</button>
+    <button class="tab" data-p="suite">La suite</button>
+    <button class="tab wide" data-p="planning">Le planning</button>
+  </div>
+
+  <section class="panel on" id="voyage">
+    <div class="tl">
+      <div class="ev reveal"><div class="when">3 novembre 2025 · au retour d'Equita Lyon</div><div class="what">Une idée, une obsession</div><div class="desc">L'étincelle juste après Equita Lyon : et si on rendait simple, et beau, ce qui prend des heures aux cavaliers ?</div></div>
+      <div class="ev reveal"><div class="when">Hiver 2025-2026</div><div class="what">Les fondations</div><div class="desc">Maquettes, premiers prototypes, choix techniques. L'idée prend racine dans l'ombre, brique par brique.</div></div>
+      <div class="ev reveal"><div class="when">Mars 2026</div><div class="what">Le grand rush</div><div class="desc">556 améliorations en un seul mois. Concours, calendrier, planning, premières briques vidéo. L'app prend forme à toute vitesse.</div></div>
+      <div class="ev reveal"><div class="when">Avril et mai 2026</div><div class="what">Best of vidéo et résultats</div><div class="desc">Montage automatique des plus beaux sauts. Synchronisation des résultats officiels (FEI, Equipe, HorseTelex). Statistiques par cheval.</div></div>
+      <div class="ev reveal"><div class="when">Juin 2026</div><div class="what">Le pivot vers la communication</div><div class="desc">L'app se recentre sur l'essentiel : créer et partager. Refonte visuelle complète, nouveau splash, nouvel accueil pensé comme Instagram.</div></div>
+      <div class="ev reveal"><div class="when">Juillet 2026</div><div class="what">Les finitions du lancement</div><div class="desc">Guide de bienvenue pas à pas, tutoriel du best-of, créations rééditables, cadrage intelligent sur le cavalier, et l'offre Horsevo Pro : 1 mois d'essai gratuit, puis 9,99 €/mois ou 99,99 €/an.</div></div>
+      <div class="ev future reveal"><div class="when">21 juillet 2026</div><div class="what">🚀 La mise en ligne</div><div class="desc">Dernière ligne droite avant l'App Store : conformité Apple, build finale, soumission.</div></div>
+    </div>
+  </section>
+
+  <section class="panel" id="vision">
+    <h2 class="vh">Le problème</h2>
+    <p class="vp">Le cheval est une passion immense. Mais les cavaliers et les écuries n'ont aucun outil simple pour la <b>raconter</b>. Ils bricolent (Canva, captures d'écran, montages laborieux) ou ne publient rien. Des moments incroyables qui ne seront jamais vus.</p>
+    <h2 class="vh">Le marché</h2>
+    <p class="vp">L'équitation est l'un des sports les plus pratiqués en France, avec des millions de passionnés en Europe. Cavaliers, écuries, éleveurs, sponsors : tous cherchent de la visibilité.</p>
+    <div class="mkt">
+      <div class="mc"><div class="mn gold">700k+</div><div class="ml">licenciés en France</div></div>
+      <div class="mc"><div class="mn gold">3ᵉ</div><div class="ml">sport français</div></div>
+      <div class="mc"><div class="mn gold">M+</div><div class="ml">cavaliers en Europe</div></div>
+    </div>
+    <h2 class="vh">La solution</h2>
+    <p class="vp">Horsevo transforme un saut, un résultat, un week-end de concours en une com <b>claire et pro</b>, en quelques secondes. Le but n'est pas d'avoir la plus belle vidéo du monde : c'est d'avoir quelque chose de <b>clair</b>, qui se comprend d'un coup d'œil. On ne fabrique pas des « reels » à rallonge. On prend <b>ton résultat</b> et on le <b>met en vie</b>. Un sans-faute, un classement, un cheval qui saute proprement : instantanément prêt à partager. <b>Personne ne le fait aussi simplement.</b></p>
+    <h2 class="vh">Pour qui ? Tout le monde.</h2>
+    <p class="vp"><b>Le professionnel</b> qui vend des chevaux : montrer un cheval qui enchaîne un sans-faute propre et net, c'est déjà un pas vers la <b>vente</b>. Une vitrine permanente, sans effort.<br><br><b>L'amateur</b> ne prendra jamais de community manager : ce n'est pas son métier, et seule une infime partie le fait. Horsevo lui donne enfin un outil à sa portée. Du cavalier du dimanche au cavalier international, <b>le même outil pour tous.</b></p>
+    <h2 class="vh">La traction</h2>
+    <p class="vp">Déjà <b>sur TestFlight</b>, avec des premiers testeurs conquis (la galerie de stats, ils l'adorent). Mise en ligne sur l'App Store visée pour le <b>21 juillet 2026</b>.</p>
+    <h2 class="vh">La valeur</h2>
+    <p class="vp">Aujourd'hui, bien communiquer, ça se paie cher. Un <b>community manager</b> dépasse vite <b>400 € par mois</b>. Un <b>seul reel</b> confié à un prestataire coûte en moyenne <b>120 €</b>. Horsevo fait le travail pour <b>9,99 € par mois</b> (ou <b>100 € par an</b>), autant de fois que tu veux. Le même résultat, une fraction du prix.</p>
+    <div class="mkt">
+      <div class="mc"><div class="mn">400 €</div><div class="ml">par mois · community manager</div></div>
+      <div class="mc"><div class="mn">120 €</div><div class="ml">un seul reel (prestataire)</div></div>
+      <div class="mc hot"><div class="mn gold">9,99 €</div><div class="ml">par mois · à volonté · Horsevo</div></div>
+    </div>
+    <h2 class="vh">Le modèle</h2>
+    <p class="vp">Abonnement <b>9,99 € par mois</b>, ou <b>100 € l'année</b> (deux mois offerts) — après <b>1 mois d'essai gratuit</b>. Pas de pub, pas d'engagement compliqué. Un revenu <b>récurrent</b>, des marges logicielles, et un prix si bas qu'il devient une évidence face aux alternatives. Quand un seul reel coûte 120 €, payer 9,99 €/mois pour en produire à volonté, ça ne se réfléchit même pas.</p>
+    <h2 class="vh">Et si ça marche ?</h2>
+    <div class="proj">
+      <div class="proj-row"><span class="lab">Abonnés</span><span class="val gold" id="ab">1 000</span></div>
+      <input type="range" min="0" max="10000" step="100" value="1000" id="sl" aria-label="Nombre d'abonnés">
+      <div class="proj-cards">
+        <div class="pc"><div class="pn gold" id="mo">9 990 €</div><div class="pl">par mois</div></div>
+        <div class="pc"><div class="pn gold" id="yr">119 880 €</div><div class="pl">par an</div></div>
+      </div>
+    </div>
+    <p class="note">Projection brute, avant commission App Store (~15 à 30 %).</p>
+    <h2 class="vh">Le pourquoi</h2>
+    <p class="vp"><b>8 mois. En solo. Sans relâche.</b> Plus de 1000 améliorations, 231 fonctionnalités, 176 bugs corrigés : une app complète, construite avec acharnement.</p>
+    <p class="vp">Et ce projet n'est pas né <b>seulement</b> pour en vivre, ni <b>seulement</b> pour marquer quelque chose. Il est né pour <b>aider</b>, pour <b>apporter une solution</b>. Aujourd'hui, partager un moment c'est : enregistrer la vidéo, ouvrir CapCut, la découper, trouver le bon instant, exporter, filer sur Instagram, taper un texte banal sans style… 15 à 20 minutes pour un résultat souvent moche, qui ne tape pas à l'œil. <b>Le temps de faire un seul montage CapCut, tu fais dix stories avec Horsevo.</b> On accélère, on simplifie, et on rend chaque cavalier fier de ce qu'il partage.</p>
+    <p class="vp">Donner au monde du cheval, du grand professionnel au cavalier du dimanche, l'outil qu'il mérite. Rendre la fierté de chacun enfin <b>visible</b>.</p>
+  </section>
+
+  <section class="panel" id="construit">
+    <p class="mut" style="font-size:15px;margin:6px 0 4px">Une seule app, huit univers. Voilà l'ampleur du travail.</p>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">🚀</span><h2>Lancement et conformité</h2><span class="cnt">juin 2026</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Onboarding du nouveau cavalier, guidé de A à Z : compte, écurie, premier cheval avec recherche HorseTelex (et lien manuel en secours), première com</b></div>
+        <div class="f"><span class="t">✓</span><b>Conformité Apple : suppression de compte dans l'app, manifeste de confidentialité, politique de confidentialité et mentions légales en ligne</b></div>
+        <div class="f"><span class="t">✓</span><b>Fiche cheval épurée sur les statistiques, avec calcul par période (20 ou 50 derniers parcours, 6 ou 12 mois)</b></div>
+        <div class="f"><span class="t">✓</span><b>Feuille de route entièrement cliquable, ajout de concours sans doublon</b></div>
+        <div class="f"><span class="t">✓</span><b>Barre de navigation affinée, photo d'accueil, mise à jour instantanée des stats après synchronisation</b></div>
+        <div class="f"><span class="t">✓</span><b>Performance et passage à l'échelle : 24 index ajoutés en base, l'app tient le rythme jusqu'à ~1000 cavaliers</b></div>
+        <div class="f"><span class="t">✓</span><b>Écran de connexion refait : Horsevo, la tête de cheval qui se dessine, la bonne identité (fin de l'ancien nom)</b></div>
+        <div class="f"><span class="t">✓</span><b>Templates de performance refondus : blanc éditorial, premium, sans le doré qui jurait</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">📣</span><h2>Communication</h2><span class="cnt">69 améliorations</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Générateur de stories Instagram</b></div>
+        <div class="f"><span class="t">✓</span><b>Modèles de performance : Sport, Éditorial, Activité, Piste (sport) et Cinéma</b></div>
+        <div class="f"><span class="t">✓</span><b>Modèles signature avec vraies polices premium et effets (grain, doré, duotone, affiche de film)</b></div>
+        <div class="f"><span class="t">✓</span><b>Polices premium embarquées — rendu identique même hors-ligne sur iPhone</b></div>
+        <div class="f"><span class="t">✓</span><b>Sélecteur de modèles repensé : galerie d'aperçus en plein format, filtres par catégorie</b></div>
+        <div class="f"><span class="t">✓</span><b>Aperçus fidèles montrant l'emplacement des sponsors</b></div>
+        <div class="f"><span class="t">✓</span><b>Mise en page des résultats peaufinée au pixel (nom, lieu, score, légende)</b></div>
+        <div class="f"><span class="t">✓</span><b>Galeries de média séparées par type : tu ne vois que les bons médias (photo de fond / affiche / logo partenaire)</b></div>
+        <div class="f"><span class="t">✓</span><b>Modèles qui s'adaptent au nombre de chevaux</b></div>
+        <div class="f"><span class="t">✓</span><b>Performance 100% vidéo</b></div>
+        <div class="f"><span class="t">✓</span><b>Assistant de légende par IA</b></div>
+        <div class="f"><span class="t">✓</span><b>Brouillons enregistrés</b></div>
+        <div class="f"><span class="t">✓</span><b>Chevaux groupés par cavalier</b></div>
+        <div class="f"><span class="t">✓</span><b>Jusqu'à 6 logos partenaires</b></div>
+        <div class="f"><span class="t">✓</span><b>Modèle « Cheval à vendre »</b></div>
+        <div class="f"><span class="t">✓</span><b>Modèle « On recrute »</b></div>
+        <div class="f"><span class="t">✓</span><b>Modèle « Merci partenaires »</b></div>
+        <div class="f"><span class="t">✓</span><b>Partage direct en Story Instagram</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">🎬</span><h2>Best of vidéo</h2><span class="cnt">35 améliorations</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Montage automatique des meilleurs sauts</b></div>
+        <div class="f"><span class="t">✓</span><b>Lecture fiable sur iPhone (import, aperçu, reprise, résultat)</b></div>
+        <div class="f"><span class="t">✓</span><b>Détection précise du saut (battue puis réception)</b></div>
+        <div class="f"><span class="t">✓</span><b>Formats Court, Moyen, Long (6, 10, 14 obstacles)</b></div>
+        <div class="f"><span class="t">✓</span><b>Analyse à 8 images par seconde</b></div>
+        <div class="f"><span class="t">✓</span><b>Intro garantie avant le 1er obstacle</b></div>
+        <div class="f"><span class="t">✓</span><b>Fusion intelligente des combinaisons</b></div>
+        <div class="f"><span class="t">✓</span><b>Timeline façon CapCut, trim au doigt</b></div>
+        <div class="f"><span class="t">✓</span><b>Export natif avec barre de progression</b></div>
+        <div class="f"><span class="t">✓</span><b>Reprise du montage sans réimport</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">🎞️</span><h2>Vidéo de présentation</h2><span class="cnt">6 améliorations</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Assemble plusieurs clips en une seule vidéo</b></div>
+        <div class="f"><span class="t">✓</span><b>Éditeur façon CapCut : pellicule + curseur de lecture déplaçable</b></div>
+        <div class="f"><span class="t">✓</span><b>Couper au curseur, rogner au doigt, réordonner les clips</b></div>
+        <div class="f"><span class="t">✓</span><b>Pincer pour zoomer la timeline</b></div>
+        <div class="f"><span class="t">✓</span><b>Recadrage automatique (retrait des bandes noires)</b></div>
+        <div class="f"><span class="t">✓</span><b>Export plein écran ou rapide (720p), partage natif</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">🏆</span><h2>Concours et calendrier</h2><span class="cnt">31 améliorations</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Calendrier officiel FEI synchronisé</b></div>
+        <div class="f"><span class="t">✓</span><b>Synchro Equipe (startlists et résultats)</b></div>
+        <div class="f"><span class="t">✓</span><b>Alerte quand les résultats tombent</b></div>
+        <div class="f"><span class="t">✓</span><b>Programme multi concours</b></div>
+        <div class="f"><span class="t">✓</span><b>Export du programme en image et PDF</b></div>
+        <div class="f"><span class="t">✓</span><b>Statuts de résultat (placé, sans faute, éliminé, forfait)</b></div>
+        <div class="f"><span class="t">✓</span><b>Calendrier recentré sur aujourd'hui</b></div>
+        <div class="f"><span class="t">✓</span><b>Drapeaux et compteurs par épreuve</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">🐎</span><h2>Chevaux et statistiques</h2><span class="cnt">la data</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Fiches chevaux avec avatars</b></div>
+        <div class="f"><span class="t">✓</span><b>Stats par cheval (parcours, classements, sans faute)</b></div>
+        <div class="f"><span class="t">✓</span><b>Synchro HorseTelex, recherche par nom</b></div>
+        <div class="f"><span class="t">✓</span><b>Forfaits distingués des éliminés</b></div>
+        <div class="f"><span class="t">✓</span><b>Suivi des soins et de la santé</b></div>
+        <div class="f"><span class="t">✓</span><b>Photos en grille</b></div>
+        <div class="f"><span class="t">✓</span><b>Gestion des cavaliers</b></div>
+        <div class="f"><span class="t">✓</span><b>Photo de profil</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">✨</span><h2>Design et expérience</h2><span class="cnt">le ressenti</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Direction « liquid glass », verre givré et Or</b></div>
+        <div class="f"><span class="t">✓</span><b>Fond vivant qui change selon l'écran</b></div>
+        <div class="f"><span class="t">✓</span><b>Splash « orbe iridescent », cheval tracé</b></div>
+        <div class="f"><span class="t">✓</span><b>Accueil éditorial, pensé comme Instagram</b></div>
+        <div class="f"><span class="t">✓</span><b>Widget « Cette semaine »</b></div>
+        <div class="f"><span class="t">✓</span><b>Animations soignées</b></div>
+        <div class="f"><span class="t">✓</span><b>Retours haptiques</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">📱</span><h2>iOS et technique</h2><span class="cnt">les fondations</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>App native iOS sur TestFlight</b></div>
+        <div class="f"><span class="t">✓</span><b>Notifications push et rappels intelligents</b></div>
+        <div class="f"><span class="t">✓</span><b>Plugins natifs (partage, export vidéo, photo)</b></div>
+        <div class="f"><span class="t">✓</span><b>Visionneuse PDF avec partage natif</b></div>
+        <div class="f"><span class="t">✓</span><b>Connexion Apple et Google</b></div>
+        <div class="f"><span class="t">✓</span><b>176 bugs traqués et corrigés</b></div>
+      </div>
+    </div>
+
+    <div class="cat reveal">
+      <div class="cat-h"><span class="ic">🧾</span><h2>Finances</h2><span class="cnt">construit, puis recentré</span></div>
+      <div class="grid">
+        <div class="f"><span class="t">✓</span><b>Facturation clients, multi chevaux, TVA, pensions, PDF et email</b></div>
+        <div class="f"><span class="t">✓</span><b>Mis de côté pour rester focalisé sur la com (le focus se gagne en disant non)</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="suite">
+    <div class="col reveal"><div class="ct" style="color:var(--amber)">Maintenant</div>
+      <div class="li"><span style="color:var(--amber)">→</span><span><b>Build TestFlight + soumission App Store</b></span></div>
+      <div class="li"><span style="color:var(--amber)">→</span><span>Recadrage auto des parcours importés (retirer les bandes noires)</span></div>
+      <div class="li"><span style="color:var(--amber)">→</span><span>Passer sur Supabase Pro quelques jours avant le lancement (~18 juil) : montée en charge + protection mots de passe fuités</span></div>
+    </div>
+    <div class="col reveal"><div class="ct" style="color:var(--blue)">Ensuite</div>
+      <div class="li"><span style="color:var(--blue)">→</span><span>Partage Instagram en 1 tap</span></div>
+      <div class="li"><span style="color:var(--blue)">→</span><span>Vidéo de démo de lancement</span></div>
+      <div class="li"><span style="color:var(--blue)">→</span><span>Com pour les réseaux générée par IA (Higgsfield) : teasers + visuels de lancement (Insta / TikTok)</span></div>
+      <div class="li"><span style="color:var(--blue)">→</span><span>Modèle Cinéma : vidéo en plein écran (mode « cover » natif iOS, à valider en TestFlight)</span></div>
+      <div class="li"><span style="color:var(--blue)">→</span><span>Concours fiables = parité ShowAdvisor : un agent vérifie que chaque concours colle exactement à ShowAdvisor (données + liens « voir / suivre »), tout linké ; + étudier comment ils s’y prennent (plan B si l’accès est coupé, pour reproduire à l’identique)</span></div>
+      <div class="li"><span style="color:var(--blue)">→</span><span>Onboarding concierge pour les 100 premiers : « on paramètre votre écurie pour vous » — chevaux + stats saisis, tout vérifié, leur 1re com faite avec eux</span></div>
+      <div class="li"><span style="color:var(--blue)">→</span><span>Piloter les comptes à distance sans mise à jour : modifier leurs données côté serveur (ex. ajouter 4 chevaux) → tout à jour au simple relancement de l’app</span></div>
+    </div>
+    <div class="col reveal"><div class="ct" style="color:var(--mut)">Plus tard</div>
+      <div class="li"><span style="color:var(--mut)">→</span><span>Mes modèles : enregistrer tes stories comme modèles réutilisables (presets par écurie / sponsors)</span></div>      <div class="li"><span style="color:var(--mut)">→</span><span>Best of avancé</span></div>
+      <div class="li"><span style="color:var(--mut)">→</span><span>Optimiser les politiques de sécurité (RLS) pour la montée en charge</span></div>
+      <div class="li"><span style="color:var(--mut)">→</span><span>Édition sur ordinateur (passer du téléphone à l'ordi pour retoucher un template)</span></div>
+      <div class="li"><span style="color:var(--mut)">→</span><span>Personnalité de l'app</span></div>
+      <div class="li"><span style="color:var(--mut)">→</span><span>Google Play</span></div>
+    </div>
+    <div class="ship reveal">
+      <div class="mut" style="font-size:14px">Mise en ligne visée</div>
+      <div class="d gold">21 juillet 2026</div>
+      <div class="pill">App Store · iPhone</div>
+    </div>
+  </section>
+
+  <section class="panel" id="planning">
+    <p class="plan-intro"><b>Conformité, performance et design : faits.</b> Dernière ligne droite vers le lancement, <b>jour par jour</b> : clique sur une journée pour dérouler les tâches.</p>
+
+    <div class="day reveal open">
+      <button class="day-h" aria-expanded="true">
+        <span class="day-dot" style="background:var(--green)"></span>
+        <span class="day-lead"><span class="day-date">Mar. 30 juin</span><span class="day-title">Vidéo de présentation (type CapCut) + com réseaux — fait ✓</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Vidéo de présentation : assembler plusieurs clips — éditeur type CapCut (curseur déplaçable, couper, rogner, réordonner, export)</div>
+        <div class="task"><span class="tk">✓</span>Recadrage automatique (détection et retrait des bandes noires)</div>
+        <div class="task"><span class="tk">✓</span>Com réseaux générée par IA (Higgsfield) : 6 posts + 4 grilles de lancement</div>
+        <div class="task"><span class="tk">✓</span>Écrans d'import vidéo refaits, immersifs et premium</div>
+        <div class="task"><span class="tk">✓</span>Build TestFlight synchronisé (build 13, bundle à jour)</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--green)"></span>
+        <span class="day-lead"><span class="day-date">Mer. 1 juil</span><span class="day-title">Build TestFlight + bêta — fait ✓</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Manifeste de confidentialité embarqué + build 15 (conforme Apple)</div>
+        <div class="task"><span class="tk">✓</span>Build finale (archive TestFlight)</div>
+        <div class="task"><span class="tk">✓</span>Envoi aux bêta-testeurs</div>
+        <div class="task"><span class="tk">✓</span>Lancer la collecte des retours</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--green)"></span>
+        <span class="day-lead"><span class="day-date">Jeu. 2 juil</span><span class="day-title">Corrections bêta — fait ✓</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Traiter les retours des testeurs</div>
+        <div class="task"><span class="tk">✓</span>Corriger les bugs prioritaires</div>
+        <div class="task"><span class="tk">✓</span>Audit complet pré-lancement (UX, design, technique, App Store) — 4 agents</div>
+        <div class="task"><span class="tk">✓</span>Salve 1 de correctifs : doré restauré, écrans d'erreur, auth FR, 404, splash 2× plus court, mode sombre v1</div>
+        <div class="task"><span class="tk">✓</span>Salve 2 : protection anti-crash vidéo 4K, bouton Annuler sur le montage, moteur vidéo embarqué (marche sans réseau), splash &amp; connexion en or</div>
+        <div class="task"><span class="tk">✓</span>Salve 3 : démarrage plus rapide (pages chargées à la demande), bannière « Pas de connexion », raccourcis plus malins</div>
+        <div class="task"><span class="tk">✓</span>Best-of : plans élargis autour du saut marqué (+0,3 s avant et après)</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--blue)"></span>
+        <span class="day-lead"><span class="day-date">Ven. 3 juil</span><span class="day-title">Préparation App Store</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Captures d'écran</div>
+        <div class="task"><span class="tk">○</span>Description et mots-clés</div>
+        <div class="task"><span class="tk">○</span>Finaliser la page produit</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--mut)"></span>
+        <span class="day-lead"><span class="day-date">Sam. et Dim. 4-5 juil</span><span class="day-title">Tests finaux</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Passer sur Supabase Pro (J-3) : montée en charge + activer la protection mots de passe fuités</div>
+        <div class="task"><span class="tk">○</span>Parcours complet de bout en bout</div>
+        <div class="task"><span class="tk">○</span>Performance sur iPhone</div>
+        <div class="task"><span class="tk">○</span>Cas limites</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Lun. 6 juil</span><span class="day-title">Sprint qualité — fait ✓</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Audit final « app parfaite » — 5 agents (UX, design, technique, App Store, textes)</div>
+        <div class="task"><span class="tk">✓</span>Salve 4 : anti-crash vidéo renforcé, splash natif noir &amp; or, contrastes, ~40 correctifs de ton et de robustesse (build 18)</div>
+        <div class="task"><span class="tk">✓</span>Templates : le style Piste suit enfin ta couleur (fini le vert), date réparée sur l'Éditorial, Annonce passée au noir &amp; or</div>
+        <div class="task"><span class="tk">✓</span>Templates Résultat &amp; Piste peaufinés : « Sans-faute » assumé, rang en or, panneau de score avec de l'impact</div>
+        <div class="task"><span class="tk">✓</span>Templates : les phrases longues ne disparaissent plus (3 lignes + « … » si ça dépasse)</div>
+        <div class="task"><span class="tk">✓</span>Template Piste redessiné (choisi sur 2 propositions comparées, nourri d'une recherche sur les codes broadcast &amp; Longines GCT)</div>
+        <div class="task"><span class="tk">✓</span>Nouveau template « À la maison » : le quotidien de l'écurie (jour géant, photo à crochets, séance) — mood board direction 3</div>
+        <div class="task"><span class="tk">✓</span>Vérif parité ShowAdvisor : 97,4 % des concours, cause unique des écarts identifiée (synchro sans cron, à l'arrêt depuis le 18 juin) — correctifs en cours</div>
+        <div class="task"><span class="tk">✓</span>Parité ShowAdvisor : synchro relancée et PLANIFIÉE (tous les jours à 3h30) — GPS 80→5 manquants (= le niveau de leur propre data), dates recalées, zéro doublon</div>
+        <div class="task"><span class="tk">✓</span>2 nouveaux templates branchés sur les VRAIES données : « Saison » (palmarès du cheval, % sans-faute, podiums) et « Le Cheval » (pedigree, année, origine)</div>
+        <div class="task"><span class="tk">✓</span>Synchro concours passée en continu : toutes les 6 h, automatique, sans mise à jour d'app</div>
+        <div class="task"><span class="tk">✓</span>Jugement d'utilisabilité (3 juges : nouvelle cavalière, pro, architecte) + 4 salves de correctifs UX : langue cavalier partout, créations enfin consultables, sécurité suppression, vrais raccourcis</div>
+        <div class="task"><span class="tk">✓</span>Template « À la maison » complet : titre libre, cheval de la séance, prochain concours affiché — et calendrier Concours apprivoisé (titre + scroll droit)</div>
+        <div class="task"><span class="tk">✓</span>Les vidéos montées ne disparaissent plus : vignette au mur, visionneuse, trace même en partage — Maison trouvable (groupe « Vie d'écurie » + entrée dans le +), fenêtres au format du média</div>
+        <div class="task"><span class="tk">✓</span>Audit Communication (fluidité + densité) : bug du double formulaire « À la maison » corrigé, fin de l'export vidéo fantôme, plus jamais de story « ANNONCE » par défaut, formulaire Résultat dégraissé (réglages rares repliés sous « Réglages avancés »)</div>
+        <div class="task"><span class="tk">✓</span>La com pour celui qui n'y connaît rien : 9 choix au lieu de 22 (« Avant le concours », « Après l'épreuve »…), le style se choisit sur l'aperçu, et un mini-aperçu suit pendant qu'on remplit — on voit toujours ce qu'on règle</div>
+        <div class="task"><span class="tk">✓</span>La photo se cadre au doigt sur l'aperçu (glisser / pincer, fini les 3 curseurs), le brouillon prévient quand la photo est à réimporter, formulaire Concours dégraissé (réglages rares repliés)</div>
+        <div class="task"><span class="tk">✓</span>Pas de vidéo ? Le template Résultat accepte maintenant une photo dans son cadre — plus jamais d'export « troué » à finir dans CapCut</div>
+        <div class="task"><span class="tk">✓</span>Retours du fondateur appliqués : plus jamais de format carré (photos = portrait ou paysage, point), les 5 templates vidéo de retour en vignettes, « Publier un résultat » rouvre la galerie</div>
+        <div class="task"><span class="tk">✓</span>La com restructurée comme le fondateur la pense : 4 parties (mon concours · mes parcours · à la maison · annonces), le « + » aligné, template « On recrute » de retour, et formats stricts — photo portrait = plein écran, paysage = fenêtre 16:9, rien d'autre</div>
+        <div class="task"><span class="tk">✓</span>Vidéo portrait = PLEIN ÉCRAN sur les styles Résultat et Magazine (le moteur « cover » du style Cinéma réutilisé — natif + ffmpeg) ; les vidéos paysage ne bougent pas</div>
+        <div class="task"><span class="tk">✓</span>« Mes vidéos à la maison » = le même montage que le parcours (une longue vidéo, on marque les moments) habillé Maison ; écrans d'import redessinés (ambiance photo, cadre story or) ; et fin des saccades (le canvas ne se redessine plus à chaque frappe)</div>
+        <div class="task"><span class="tk">✓</span>Calendrier des concours défigé : le verrou d'axe (scroll droit comme ShowAdvisor) se relâche maintenant en fin de geste — il gardait l'écran prisonnier de la position précédente</div>
+        <div class="task"><span class="tk">✓</span>« Mes vidéos à la maison » : la mise en forme arrive maintenant bien sur le template Maison (elle forçait le résultat de concours)</div>
+        <div class="task"><span class="tk">✓</span>Template Maison réparé sur retours : halo derrière les logos, couleurs du thème branchées, le cheval choisi s'affiche — et la galerie « Mes photos » ne se remplit plus de doublons</div>
+        <div class="task"><span class="tk">✓</span>Logos : la galerie les montre en tuiles entières (fini le 9:16 rogné géant), et le halo devient une plaque claire discrète sous la bande sponsors (opacité réglable)</div>
+        <div class="task"><span class="tk">✓</span>Logos sponsors « en blanc » (silhouettes monochromes, le traitement des vraies bannières), fin des doublons à la racine + bouton de nettoyage, et le cheval de la séance s'écrit en sous-titre du template Maison</div>
+        <div class="task"><span class="tk">✓</span>Qualité d'export réparée : la story vidéo sortait réduite (607×1080) à cause d'un mauvais preset natif — elle sort maintenant en vrai 1080×1920 haute qualité, et le moteur de secours encode plus fin</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--mut)"></span>
+        <span class="day-lead"><span class="day-date">Mar. 7 – Mer. 8 juil</span><span class="day-title">Derniers réglages</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Nouvelle icône d'app : cheval blanc aux courbes fluides, œil d'or, fond noir charte — l'arc-en-ciel de 2023 prend sa retraite (+ avatar Instagram assorti)</div>
+        <div class="task"><span class="tk">✓</span>Le gabarit de la story de lancement devient un template de l'app : « Affiche » (photo plein écran, gros titre au dernier mot doré) — et le calendrier des concours ne rame plus (virtualisation)</div>
+        <div class="task"><span class="tk">✓</span>Défilement du calendrier calqué sur la référence du fondateur (analyse vidéo image par image) : l'axe reste tenu jusqu'à la fin de l'élan, fini les dérives en diagonale</div>
+        <div class="task"><span class="tk">✓</span>Le calendrier adopte l'organisation de la référence : pastilles de niveau posées sur les barres, texte noir lisible sur chaque couleur, bandeau de semaine structurant</div>
+        <div class="task"><span class="tk">✓</span>Correctifs com : les logos s'écartent quand on les agrandit (fini le chevauchement), les logos passent bien en blanc sur le téléphone, les photos sont compressées à l'import (26 Mo → 300 Ko) et les doublons sont mieux évités</div>
+        <div class="task"><span class="tk">✓</span>Deux nouveaux templates pour annoncer un concours : « Compte à rebours » (J-3 géant) et « Programme » (tes chevaux + leurs cavaliers, étoiles du niveau) — robustes jusqu'à 8 chevaux</div>
+        <div class="task"><span class="tk">✓</span>Chaque modèle montre maintenant un aperçu réaliste avec de vraies photos de concours (plus de placeholder) + garde-fou anti-débordement sur les titres des nouveaux templates</div>
+        <div class="task"><span class="tk">✓</span>Les aperçus des 4 modèles de concours utilisent maintenant de vraies photos choisies par le fondateur</div>
+        <div class="task"><span class="tk">✓</span>Template « Programme » repris pour qu'il respire comme les maquettes : liste ancrée en bas, fini les mots collés et le vide, « CE WEEK-END » qui débordait retiré</div>
+        <div class="task"><span class="tk">✓</span>Finitions concours : le titre du Programme respire, le logo Horsevo reste lisible sur les photos claires, et le « + » propose « Voir tous les modèles » pour la galerie complète</div>
+        <div class="task"><span class="tk">✓</span>L'option « logos en blanc » fonctionne maintenant sur tous les templates, plus seulement quelques-uns</div>
+        <div class="task"><span class="tk">✓</span>Compte à rebours : accepte désormais les sponsors, « PROCHAIN RENDEZ-VOUS » plus visible, et sa couleur suit bien le thème choisi</div>
+        <div class="task"><span class="tk">✓</span>Effet noir & blanc activable sur tous les templates ; template Saison enrichi (choix de période écrite sur le visuel, classement ou points, petite phrase) ; affiche retirée du Compte à rebours et du Programme</div>
+        <div class="task"><span class="tk">○</span>Retours TestFlight du fondateur (parcours complets sur téléphone)</div>
+        <div class="task"><span class="tk">○</span>Nouveau rendu « Travail à la maison » d'après la référence envoyée (variante féminine + masculine)</div>
+        <div class="task"><span class="tk">○</span>Vérifier la vidéo portrait plein écran et la qualité d'export sur device</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal open">
+      <button class="day-h" aria-expanded="true">
+        <span class="day-dot" style="background:var(--green)"></span>
+        <span class="day-lead"><span class="day-date">Mer. 9 juil</span><span class="day-title">Grande chasse aux bugs + finitions — fait ✓</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Audit complet de toute l'app par 4 relecteurs en parallèle (com, écurie, concours, inscription) → tous les défauts trouvés corrigés, du plus grave au plus léger</div>
+        <div class="task"><span class="tk">✓</span>Import vidéo : un écran de chargement apparaît dès qu'on choisit sa vidéo (fini le « rien ne se passe »), et les bandes noires d'un parcours sont rognées automatiquement — à l'aperçu comme à l'export</div>
+        <div class="task"><span class="tk">✓</span>Une story enregistrée n'est plus reproposée en brouillon ; les concours passés ne disparaissent plus mais passent en bas de liste (les à venir en tête)</div>
+        <div class="task"><span class="tk">✓</span>Calendrier des concours réécrit : deux défilements natifs (fini les saccades, les blocages et les diagonales) ; stats des chevaux justes même sur une grosse écurie</div>
+        <div class="task"><span class="tk">✓</span>Inscription et première connexion durcies (device partagé, confirmation d'email, droits d'écurie) ; synchronisation serveur des concours remise au nouveau format de l'API</div>
+        <div class="task"><span class="tk">✓</span>Tous les modèles vérifiés : alignement et cohérence ; réglages fins sur le template Piste ; capacité « Connexion avec Apple » câblée pour la validation Store</div>
+        <div class="task"><span class="tk">✓</span>Audit qualité complet (3 relecteurs + passe visuelle) : le template « On recrute » qui sortait un visuel vide est réparé, plus AUCUN texte ne peut déborder d'un visuel (lieux longs, noms de chevaux, pedigree, sous-titres…), et « Recommencer » repart vraiment de zéro</div>
+        <div class="task"><span class="tk">✓</span>Finitions premium partout : messages d'erreur en français chaleureux (fini le jargon), guidage du tout premier usage, feedback après chaque partage, tutoriel remis à jour — et le logo du splash affiné (trait fin, or sobre, fini l'effet néon)</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--blue)"></span>
+        <span class="day-lead"><span class="day-date">Jeu. 10 – Ven. 18 juil</span><span class="day-title">Tests sur téléphone + derniers réglages</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Parcours complets sur device (build 60) : com, écurie, concours, best-of vidéo</div>
+        <div class="task"><span class="tk">○</span>Activer « Connexion avec Apple » côté portail Apple + régénérer le profil de signature</div>
+        <div class="task"><span class="tk">○</span>Déployer la synchronisation serveur des concours (notif « horaires sortis » + import auto des résultats)</div>
+        <div class="task"><span class="tk">○</span>Supabase Pro + protection mots de passe fuités avant la montée en charge</div>
+        <div class="task"><span class="tk">○</span>Fiche App Store : description, mots-clés, captures d'écran</div>
+        <div class="task"><span class="tk">○</span>Derniers retours du fondateur appliqués</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Sam. 19 juil</span><span class="day-title">Soumission</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Build de production (archive)</div>
+        <div class="task"><span class="tk">○</span>Soumission à la validation Apple</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--amber)"></span>
+        <span class="day-lead"><span class="day-date">Dim. 20 juil</span><span class="day-title">Validation Apple</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Répondre aux questions éventuelles d'Apple</div>
+        <div class="task"><span class="tk">○</span>Derniers correctifs si demandés</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Lun. 21 juil</span><span class="day-title">🚀 Mise en ligne</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">○</span>Publication sur l'App Store</div>
+        <div class="task"><span class="tk">○</span>Annonce officielle</div>
+        <div class="task"><span class="tk">○</span>La toute première vraie com 🐎</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Mar. 22 – Lun. 27 juil</span><span class="day-title">Solidité avant les premiers utilisateurs</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Fluidité de l'accueil et réactivité de la navigation</div>
+        <div class="task"><span class="tk">✓</span>Base de données vérifiée pour tenir 1 000 utilisateurs</div>
+        <div class="task"><span class="tk">✓</span>Audit cybersécurité complet : aucune faille exploitable</div>
+        <div class="task"><span class="tk">✓</span>Mot de passe oublié : récupération par code à 8 chiffres</div>
+      </div></div>
+    </div>
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Mar. 28 juil – Dim. 2 août</span><span class="day-title">🚀 En ligne sur l'App Store</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Le site horsevo.app est né : accueil, confidentialité, mentions légales et support, en HTTPS sur le domaine</div>
+        <div class="task"><span class="tk">✓</span>Les e-mails passent enfin : une vraie prospect n'avait pas reçu sa confirmation, le service d'envoi était saturé</div>
+        <div class="task"><span class="tk">✓</span>Photos de chevaux réparées : plus personne ne pouvait en ajouter depuis un mois sans que ça se voie</div>
+        <div class="task"><span class="tk">✓</span>Trois refus d'Apple encaissés et corrigés : lien des conditions manquant, puis un plantage de l'appareil photo sur iPad</div>
+        <div class="task"><span class="tk">✓</span>Audit de pré-soumission à trente agents : chaque motif de refus possible cherché, puis contre-vérifié</div>
+        <div class="task"><span class="tk">✓</span>Approuvée par Apple le 2 août. Horsevo est téléchargeable.</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Lun. 3 août</span><span class="day-title">🌍 Horsevo parle anglais — v1.5</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Traduction complète de l'app : 1 800 textes, choix de la langue à l'inscription, modifiable dans le profil</div>
+        <div class="task"><span class="tk">✓</span>Les templates de story aussi : chaque visuel se dessine en français ou en anglais, au pixel près</div>
+        <div class="task"><span class="tk">✓</span>Audit à 20 agents : 108 problèmes trouvés et contre-vérifiés, 90 corrigés — dont la suppression de compte impossible en anglais</div>
+        <div class="task"><span class="tk">✓</span>Plus fluide : les formulaires ne redessinent plus tout l'écran à chaque lettre tapée</div>
+        <div class="task"><span class="tk">✓</span>Grand ménage des reliquats : liens légaux sur horsevo.app, couleurs d'écurie au défaut, soins masqués partout</div>
+        <div class="task"><span class="tk">✓</span>Approuvée et en ligne le 3 août au soir. Horsevo parle français et anglais.</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Ven. 7 août</span><span class="day-title">🐴 v1.7 : le Haras et les dates de naissance</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Nouveau template « Haras » : une story élégante pour présenter son écurie</div>
+        <div class="task"><span class="tk">✓</span>Date de naissance des chevaux : l'âge se calcule tout seul, partout</div>
+        <div class="task"><span class="tk">✓</span>HorseTelex branché : le palmarès d'un cheval se retrouve en deux clics</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Dim. 9 août</span><span class="day-title">🎬 v1.8 : la vidéo tient ses promesses</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>L'écran noir à l'export vidéo, traqué depuis des semaines : trouvé et éliminé</div>
+        <div class="task"><span class="tk">✓</span>Montage des parcours : les bandes de clips se manipulent au doigt, comme dans les grandes apps de montage</div>
+        <div class="task"><span class="tk">✓</span>Un pied de page « Made with Horsevo » discret et premium sur les stories</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Mer. 12 août</span><span class="day-title">✨ v1.9 : trois nouveaux templates, envoyée à Apple</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>« Flot » : annoncer son résultat en une story digne des cavaliers du top 10, l'app compose tout</div>
+        <div class="task"><span class="tk">✓</span>« Quel Homme » : annoncer son concours sur une photo plein écran, sobre et classe</div>
+        <div class="task"><span class="tk">✓</span>« Moment » : une photo ou vidéo du quotidien, un message, la date s'écrit toute seule</div>
+        <div class="task"><span class="tk">✓</span>La taille du texte se règle champ par champ, et plus rien ne déborde jamais du cadre</div>
+        <div class="task"><span class="tk">✓</span>Le montage des parcours devient aussi fluide que CapCut : on glisse, on rogne, on navigue entre les plans</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Dim. 17 août</span><span class="day-title">🚄 Cinq chantiers menés de front</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Quatre nouveaux templates : Stage / cours, Heures de passage, Fiers de nos partenaires et Bienvenue au sponsor</div>
+        <div class="task"><span class="tk">✓</span>Deux nouveaux styles pour annoncer son résultat : Palmarès (façon magazine) et Direct (bandeau télé)</div>
+        <div class="task"><span class="tk">✓</span>Les notifications enfin réparées : l'alerte « horaires sortis » et un rappel « annonce ton concours » 2 jours avant</div>
+        <div class="task"><span class="tk">✓</span>Le programme officiel FEI d'un concours se lit maintenant dans l'app : épreuves, visites, contact</div>
+        <div class="task"><span class="tk">✓</span>Cinq sessions de travail en parallèle, chacune sur sa branche, fusionnées et vérifiées en une soirée</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Mar. 18 août</span><span class="day-title">🚀 v1.9 en ligne, la mise à jour du jour J</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Approuvée par Apple et disponible : 6 nouveaux templates, dont les Heures de passage du jour J</div>
+        <div class="task"><span class="tk">✓</span>Le programme officiel de chaque concours international directement dans l'app, en une seconde</div>
+        <div class="task"><span class="tk">✓</span>Roue d'heure, numéro de passage, épreuves proposées depuis le programme officiel : le minimum à taper</div>
+        <div class="task"><span class="tk">✓</span>Le programme du championnat d'Aachen ajouté à la main le jour même, semaine oblige</div>
+        <div class="task"><span class="tk">○</span>Vidéo déjà coupée ? L'app te propose de sauter le montage et de passer direct à l'habillage</div>
+        <div class="task"><span class="tk">○</span>Fondu noir entre les plans du best-of, en option : à toi de choisir entre coupe sèche et fondu</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Mer. 19 – Jeu. 20 août</span><span class="day-title">🚀 v2.0 puis v2.1, la semaine des championnats</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>« Ta vidéo est déjà montée ? » posé en grand à l'arrivée : on saute le montage quand on n'en a pas besoin</div>
+        <div class="task"><span class="tk">✓</span>Fondu noir entre les plans du best-of, en option, éteint par défaut</div>
+        <div class="task"><span class="tk">✓</span>Les vraies dates du concours se remplissent seules sur les visuels — plus de date du jour à la place</div>
+        <div class="task"><span class="tk">✓</span>Le numéro de départ donne l'heure de passage estimée, avec la cadence de l'épreuve</div>
+        <div class="task"><span class="tk">✓</span>Les championnats du monde d'Aix-la-Chapelle suivis en direct : horaires des Français, classements par équipes et individuels</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Jeu. 21 août</span><span class="day-title">🐎 v2.2 — les origines, et une page enfin simple</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Les origines du cheval arrivent avec HorseTelex : père, père de la mère, studbook, dès la connexion</div>
+        <div class="task"><span class="tk">✓</span>361 chevaux déjà connectés rattrapés d'un coup : 351 ont désormais leur père en base</div>
+        <div class="task"><span class="tk">✓</span>« Le jour J » réduit à l'essentiel : le concours, les passages, et c'est tout. Le reste se remplit seul</div>
+        <div class="task"><span class="tk">✓</span>Choix Story ou Publication 4:5, avec les deux aperçus qui changent de forme</div>
+        <div class="task"><span class="tk">✓</span>Voile réglable sur la photo du template Quel Homme</div>
+        <div class="task"><span class="tk">✓</span>L'app ne se fige plus au passage en Cinéma : le cadrage automatique ne tourne que quand il sert vraiment</div>
+        <div class="task"><span class="tk">✓</span>Les origines sur les visuels : la ligne d'élevage (père × père de mère, ou avec la mère) en option sur 9 templates résultat</div>
+        <div class="task"><span class="tk">✓</span>Heures de passage : le numéro de départ donne l'heure DU passage, l'épreuve en entier, et les deux heures sur le visuel</div>
+        <div class="task"><span class="tk">✓</span>50 textes anglais qui manquaient, ajoutés — l'app est vraiment bilingue partout</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Ven. 22 août</span><span class="day-title">🚀 v2.2 en ligne + v2.3 : les médias qui reviennent</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>La v2.2 approuvée par Apple en deux heures, en ligne le 21 au soir</div>
+        <div class="task"><span class="tk">✓</span>Les logos partenaires importés avant l'été réapparaissent — ils étaient mal rangés, pas perdus (6 écuries concernées)</div>
+        <div class="task"><span class="tk">✓</span>Photo bloquée dans iCloud : l'app passe par le sélecteur Apple qui la télécharge, au lieu d'échouer en silence</div>
+        <div class="task"><span class="tk">✓</span>iPhone plein : un message clair dit quoi faire, et la photo en place n'est plus effacée</div>
+        <div class="task"><span class="tk">✓</span>Email de confirmation d'inscription habillé Noir & Or — fini le modèle brut qui finissait en spam</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Dim. 24 août</span><span class="day-title">🚀 v2.4 en ligne le jour même + l'app se met à jour toute seule</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Le coffre vidéo : ton montage en cours survit désormais aux grands ménages d'iOS — copie de sécurité dès l'import</div>
+        <div class="task"><span class="tk">✓</span>Le vrai bug des imports retrouvé et corrigé : les grosses vidéos passent, et l'app explique quand quelque chose coince</div>
+        <div class="task"><span class="tk">✓</span>Mises à jour à distance : les correctifs et nouveautés arrivent sur les téléphones en minutes, sans passer par l'App Store</div>
+        <div class="task"><span class="tk">✓</span>Soumise le matin, approuvée par Apple dans la journée, en ligne à 17 h</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-h" aria-expanded="false">
+        <span class="day-dot" style="background:var(--gold)"></span>
+        <span class="day-lead"><span class="day-date">Lun. 25 août</span><span class="day-title">✨ Six nouveaux templates, sans mise à jour</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Légende et Blanc : l'édito magazine, en noir & or et en plein jour</div>
+        <div class="task"><span class="tk">✓</span>Ivoire : la première page claire de l'app — calligraphie, passe-partout de galerie</div>
+        <div class="task"><span class="tk">✓</span>Gazette : la une de journal sportif, manchette et score en rouge</div>
+        <div class="task"><span class="tk">✓</span>Monogramme et Galerie : pensés pour les vidéos verticales, l'en-tête de grande maison et le cartel de musée</div>
+        <div class="task"><span class="tk">✓</span>Le cadrage intelligent suit mieux le couple, même filmé de loin</div>
+        <div class="task"><span class="tk">✓</span>Le tout livré par les airs, d'une maquette validée le matin aux 600 téléphones le soir</div>
+      </div></div>
+    </div>
+
+
+  </section>
+
+  <footer>Horsevo · 2026 · La passion mérite d'être vue 🐎</footer>
+</div>
+<script>
+  // Onglets
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});
+      document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on')});
+      t.classList.add('on');var p=document.getElementById(t.dataset.p);p.classList.add('on');
+      p.querySelectorAll('.reveal').forEach(function(el,i){el.classList.remove('in');setTimeout(function(){el.classList.add('in')},60+i*55)});
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+  // Révélation au scroll (stagger doux)
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(Math.min(i,6)*55)+'ms';io.observe(el);});
+  // Compteurs (quand visibles)
+  function countUp(el){var to=+el.dataset.to,d=1300,s=performance.now();function tick(n){var p=Math.min(1,(n-s)/d);el.textContent=Math.round(to*(1-Math.pow(1-p,4))).toLocaleString('fr-FR');if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}})},{threshold:.5});
+  document.querySelectorAll('.n[data-to]').forEach(function(el){cio.observe(el);});
+  // Simulateur de projection (9,99 € / mois)
+  var sl=document.getElementById('sl');
+  if(sl){var euro=function(n){return n.toLocaleString('fr-FR')+' €';};
+    var proj=function(){var a=+sl.value;document.getElementById('ab').textContent=a.toLocaleString('fr-FR');var mo=a*9.99;document.getElementById('mo').textContent=euro(Math.round(mo));document.getElementById('yr').textContent=euro(Math.round(mo*12));};
+    sl.addEventListener('input',proj);proj();}
+  // Planning, accordéon jour par jour
+  document.querySelectorAll('.day-h').forEach(function(h){
+    h.addEventListener('click',function(){
+      var d=h.parentElement,open=d.classList.toggle('open');
+      h.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+</script>
+</body>
+</html>
