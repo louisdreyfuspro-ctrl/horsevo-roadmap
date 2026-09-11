@@ -832,12 +832,23 @@
 
     <div class="day reveal launch">
       <button class="day-head" aria-expanded="false">
+        <span class="day-lead"><span class="day-date">Ven. 11 sept</span><span class="day-title">🎬 Les bandes noires qui revenaient sur un parcours filé trop vite</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Un cavalier a exporté un parcours « Travail à la maison » avec ses bandes noires, alors que l'app sait les rogner. Ses traces l'expliquent : vidéo de 166 Mo, « Suivant » tapé 3 secondes après l'import, l'analyse des bandes a fini 4 secondes plus tard, sur un écran déjà quitté ; et l'analyse de secours, lancée sur l'écran suivant, a tourné 52 secondes sans réussir à lire une seule image (le téléphone saturait, quatre lecteurs ouverts sur la même vidéo)</div>
+        <div class="task"><span class="tk">✓</span>Désormais l'analyse commencée au montage suit l'utilisateur sur l'écran suivant : on attend son verdict au lieu d'en relancer une ; quand une analyse de secours n'a rien pu lire, elle le dit (au lieu de conclure « pas de bandes ») et retente une fois ; l'export patiente jusqu'à 15 secondes pour le verdict. Rejoué en automatique avec une vidéo à bandes et un clic un quart de seconde après l'import : aperçu recadré (2.4.153, pour tous)</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-head" aria-expanded="false">
         <span class="day-lead"><span class="day-date">Jeu. 10 sept</span><span class="day-title">⏱️ La roue d'heure qui se refermait toute seule</span></span>
         <span class="day-chev">▾</span></button>
       <div class="day-body"><div class="day-tasks">
         <div class="task"><span class="tk">✓</span>Une cliente n'arrivait plus à régler une heure de passage : la roue d'heure se refermait avant qu'elle ait pu la tourner, deux jours de suite, application à jour. Cause trouvée : depuis iOS 26, la roue se ferme dès que l'écran se redessine, et nos champs d'heure redessinaient l'écran à chaque cran. Tous les champs d'heure de l'app (heures de passage, heure de départ d'un concours, planning, tâches) ne remontent plus la valeur qu'à la fermeture de la roue. Publié à tous (2.4.148)</div>
         <div class="task"><span class="tk">✓</span>Annonce de concours : les chevaux apparaissent sur la story dans l'ordre où on les a cochés, le premier tapé en premier, au lieu de l'ordre de la liste de l'écurie (2.4.150)</div>
         <div class="task"><span class="tk">✓</span>Annonce de concours, style « Engagé » : un réglage « Taille des pastilles chevaux », Normale, Petite ou Mini, dans les Réglages avancés, pour ce style seulement (demande du fondateur, 2.4.151)</div>
+        <div class="task"><span class="tk">✓</span>Dans la foulée, pour une cliente pressée : un réglage « Largeur des pastilles », Étroite, Normale ou Large, au même endroit, pour ce style seulement (2.4.152)</div>
         <div class="task"><span class="tk">✓</span>Concours nationaux : le calendrier repart sur « Toute la France » (un réglage d'office masquait Vichy au fondateur) ; seul un choix de départements fait à la main est mémorisé (2.4.149)</div>
       </div></div>
     </div>
