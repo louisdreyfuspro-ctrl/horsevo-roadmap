@@ -832,6 +832,18 @@
 
     <div class="day reveal launch">
       <button class="day-head" aria-expanded="false">
+        <span class="day-lead"><span class="day-date">Sam. 12 sept</span><span class="day-title">🧠 Les grosses vidéos sans faire plier l'iPhone</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Le matin, une cavalière avec un iPhone récent importe sa vidéo de 641 Mo en 4K, monte ses plans, arrive sur les templates… et iOS ferme l'app, quatre fois de suite, avant qu'elle ait pu toucher « Télécharger ». Deux autres clients ont connu la même chose dans la nuit avec 558 et 630 Mo. La limite « grands iPhone » est redescendue à 500 Mo dans la minute, le temps de comprendre</div>
+        <div class="task"><span class="tk">✓</span>Mesuré sur le simulateur, processus par processus, avec la même mesure que celle qu'iOS utilise pour tuer une app : à l'import, l'app copiait toute la vidéo en mémoire (634 Mo) pour rien, et l'aperçu des templates la relisait depuis cette copie, ce qui faisait bondir le moteur web de 55 à 609 Mo d'un coup. C'était là que l'app mourait</div>
+        <div class="task"><span class="tk">✓</span>Désormais la vidéo n'est plus jamais copiée en mémoire : le montage la lit depuis le fichier, la copie de secours se fait par un clonage instantané du disque (12 ms pour 634 Mo), l'aperçu et l'export lisent le fichier directement. Rejoué sur le simulateur avec la vidéo 4K de 634 Mo : import en une demi-seconde, moteur web à 251 Mo au lieu de 609, et le même export 4K validé sur le banc natif. Un coupe-circuit à distance permet de revenir en arrière en une minute (2.4.156, pour tous)</div>
+        <div class="task"><span class="tk">✓</span>Conséquence : la limite passe à 1 Go pour tous les iPhone qui ont cette version, quel que soit le modèle ; les anciens bundles gardent leurs 500 Mo prudents. Chaque import note toujours la taille et le téléphone, pour continuer à ajuster sur des faits</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-head" aria-expanded="false">
         <span class="day-lead"><span class="day-date">Ven. 11 sept</span><span class="day-title">🎬 Les bandes noires qui revenaient sur un parcours filé trop vite</span></span>
         <span class="day-chev">▾</span></button>
       <div class="day-body"><div class="day-tasks">
