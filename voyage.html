@@ -832,6 +832,17 @@
 
     <div class="day reveal launch">
       <button class="day-head" aria-expanded="false">
+        <span class="day-lead"><span class="day-date">Mar. 16 sept</span><span class="day-title">🧩 Compilation : le dernier écran qui copiait la vidéo en mémoire</span></span>
+        <span class="day-chev">▾</span></button>
+      <div class="day-body"><div class="day-tasks">
+        <div class="task"><span class="tk">✓</span>Une cavalière signale des bugs. Ses traces : neuf passages sur l'écran « Compilation » (plusieurs clips à la suite) dans la soirée, neuf fermetures de l'app par iOS. Cet écran chargeait encore chaque clip entier en mémoire et assemblait avec le moteur lent, exactement ce qui avait été corrigé samedi pour « Monter mon parcours »</div>
+        <div class="task"><span class="tk">✓</span>Rebranché sur les briques natives déjà en service : chaque clip est découpé par l'iPhone depuis son fichier, puis collé sans ré-encodage. Plus rien n'entre en mémoire, et le montage est plus rapide. Sur iPhone, les options propres à l'ancien moteur (plein écran, rapide, recadrer) sont retirées. Pour tous (2.4.158)</div>
+        <div class="task"><span class="tk">✓</span>« Que ça n'arrive plus jamais à personne » : un test automatique refuse désormais tout nouveau code qui copierait une vidéo en mémoire, sur n'importe quel écran. Et chaque passage sur Compilation laisse une trace (nombre de clips, poids, réussite ou échec) pour ne plus découvrir un problème par un client</div>
+      </div></div>
+    </div>
+
+    <div class="day reveal launch">
+      <button class="day-head" aria-expanded="false">
         <span class="day-lead"><span class="day-date">Dim. 13 sept</span><span class="day-title">🔠 La taille du texte, à la main</span></span>
         <span class="day-chev">▾</span></button>
       <div class="day-body"><div class="day-tasks">
